@@ -43,6 +43,8 @@ public class Artwork {
 
     private String dimensions;
 
+    /** "year" is a reserved word in H2, so the column needs an explicit name. */
+    @Column(name = "year_created")
     private int year;
 
     private boolean trending;
