@@ -177,7 +177,7 @@ public class DataSeeder implements CommandLineRunner {
             .category(category)
             .technique(technique)
             .dimensions(dimensions)
-            .year(year)
+            .yearCreated(year)
             .trending(trending)
             .views(views)
             .description(description)
