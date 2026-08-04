@@ -43,7 +43,8 @@ public class Artwork {
 
     private String dimensions;
 
-    private int year;
+    @Column(name = "year_created")
+    private int yearCreated;
 
     private boolean trending;
 

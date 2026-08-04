@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Heart, Menu, X } from 'lucide-react'
+import { Command, Heart, Menu, Search, X } from 'lucide-react'
 import { useFavorites } from '../store/favorites'
+import { useQuickSearch } from '../store/quickSearch'
 
 const links = [
   { to: '/', label: 'Accueil' },
@@ -19,6 +20,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false)
   const location = useLocation()
   const favoritesCount = useFavorites((s) => s.ids.length)
+  const openSearch = useQuickSearch((s) => s.setOpen)
   const transparent = location.pathname === '/' && !scrolled
 
   useEffect(() => {
@@ -42,6 +44,16 @@ export function Navbar() {
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
+          <button
+            onClick={() => openSearch(true)}
+            aria-label="Recherche rapide"
+            className="flex items-center gap-2 rounded-full border border-ivory/20 px-3 py-1.5 text-xs text-ivory/60 transition-colors hover:border-gold hover:text-gold"
+          >
+            <Search size={13} />
+            <span className="flex items-center gap-0.5">
+              <Command size={11} />K
+            </span>
+          </button>
           {links.map((l) => (
             <NavLink
               key={l.to}

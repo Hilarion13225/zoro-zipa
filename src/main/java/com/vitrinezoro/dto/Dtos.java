@@ -30,7 +30,7 @@ public final class Dtos {
                 a.getImages(), a.getArtist() != null ? a.getArtist().getId() : null,
                 a.getArtist() != null ? a.getArtist().getName() : null,
                 a.getCategory(), a.getTechnique(), a.getDimensions(),
-                a.getYear(), a.isTrending(), a.getViews());
+                a.getYearCreated(), a.isTrending(), a.getViews());
         }
     }
 

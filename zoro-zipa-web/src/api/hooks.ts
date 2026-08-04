@@ -81,7 +81,12 @@ export const useUsers = () =>
 
 // ---------- Stats ----------
 export const useStats = () =>
-  useQuery({ queryKey: ['stats'], queryFn: fetchOne<Stats>('/stats') })
+  useQuery({
+    queryKey: ['stats'],
+    queryFn: fetchOne<Stats>('/stats'),
+    refetchInterval: 30000,
+    refetchOnWindowFocus: false,
+  })
 
 // ---------- Generic admin CRUD ----------
 type Resource =

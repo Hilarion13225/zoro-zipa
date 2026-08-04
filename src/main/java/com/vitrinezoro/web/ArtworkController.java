@@ -65,7 +65,7 @@ public class ArtworkController {
         artwork.setCategory(body.category());
         artwork.setTechnique(body.technique());
         artwork.setDimensions(body.dimensions());
-        artwork.setYear(body.year());
+        artwork.setYearCreated(body.year());
         artwork.setTrending(body.trending());
         if (body.artistId() != null) {
             artwork.setArtist(artists.findById(body.artistId())
