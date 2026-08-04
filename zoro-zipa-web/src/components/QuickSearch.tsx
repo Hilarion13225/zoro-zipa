@@ -47,13 +47,13 @@ export function QuickSearch() {
     const onKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault()
-        setOpen(!useQuickSearch.getState().open)
+        setOpen(!open)
       }
       if (e.key === 'Escape') setOpen(false)
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [setOpen])
+  }, [setOpen, open])
 
   useEffect(() => {
     if (open) {

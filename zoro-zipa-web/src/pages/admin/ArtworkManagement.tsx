@@ -3,6 +3,7 @@ import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { AdminHeader } from '../../components/admin/AdminHeader'
 import { DataTable } from '../../components/admin/DataTable'
 import { FormField, inputClass } from '../../components/admin/FormField'
+import { ImageUpload } from '../../components/admin/ImageUpload'
 import { Modal } from '../../components/Modal'
 import {
   useArtists,
@@ -141,17 +142,7 @@ export function ArtworkManagement() {
             />
           </FormField>
           <div className="md:col-span-2">
-            <FormField label="Image (URL)">
-              <input className={inputClass} value={form.imageUrl} onChange={(e) => set('imageUrl', e.target.value)} />
-            </FormField>
-            {form.imageUrl && (
-              <img
-                src={form.imageUrl}
-                alt="Aperçu"
-                className="mt-3 h-40 w-full object-cover"
-                onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')}
-              />
-            )}
+            <ImageUpload value={form.imageUrl} onChange={(url) => set('imageUrl', url)} />
           </div>
           <div className="md:col-span-2">
             <FormField label="Description">

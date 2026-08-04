@@ -3,6 +3,7 @@ import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { AdminHeader } from '../../components/admin/AdminHeader'
 import { DataTable } from '../../components/admin/DataTable'
 import { FormField, inputClass } from '../../components/admin/FormField'
+import { ImageUpload } from '../../components/admin/ImageUpload'
 import { Modal } from '../../components/Modal'
 import {
   useCreateEntity,
@@ -119,9 +120,7 @@ export function GalleryManagement() {
           <FormField label="Adresse">
             <input className={inputClass} value={form.address} onChange={(e) => set('address', e.target.value)} />
           </FormField>
-          <FormField label="Image (URL)">
-            <input className={inputClass} value={form.imageUrl} onChange={(e) => set('imageUrl', e.target.value)} />
-          </FormField>
+          <ImageUpload value={form.imageUrl} onChange={(url) => set('imageUrl', url)} />
           <FormField label="Description">
             <textarea rows={3} className={inputClass} value={form.description} onChange={(e) => set('description', e.target.value)} />
           </FormField>

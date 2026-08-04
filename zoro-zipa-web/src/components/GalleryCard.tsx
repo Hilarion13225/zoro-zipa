@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 import { MapPin } from 'lucide-react'
 import type { Gallery } from '../types'
 
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1564399579883-451a5d44eef0?w=800&q=80'
+
 interface GalleryCardProps {
   gallery: Gallery
 }
@@ -18,7 +20,7 @@ export function GalleryCard({ gallery }: GalleryCardProps) {
     >
       <div className="aspect-video overflow-hidden">
         <img
-          src={gallery.imageUrl}
+          src={gallery.imageUrl && gallery.imageUrl.trim() ? gallery.imageUrl : FALLBACK_IMAGE}
           alt={gallery.name}
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"

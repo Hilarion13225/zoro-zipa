@@ -4,6 +4,8 @@ import { CalendarDays, MapPin } from 'lucide-react'
 import type { Exhibition } from '../types'
 import { formatDateRange } from '../utils/format'
 
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1578926078328-123456789012?w=800&q=80'
+
 interface ExhibitionCardProps {
   exhibition: Exhibition
 }
@@ -21,7 +23,7 @@ export function ExhibitionCard({ exhibition }: ExhibitionCardProps) {
       <Link to={`/expositions/${exhibition.id}`} className="block">
         <div className="relative aspect-[4/5] overflow-hidden">
           <img
-            src={exhibition.posterUrl}
+            src={exhibition.posterUrl && exhibition.posterUrl.trim() ? exhibition.posterUrl : FALLBACK_IMAGE}
             alt={exhibition.title}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"

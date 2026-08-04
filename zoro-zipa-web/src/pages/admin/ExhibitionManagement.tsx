@@ -3,6 +3,7 @@ import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { AdminHeader } from '../../components/admin/AdminHeader'
 import { DataTable } from '../../components/admin/DataTable'
 import { FormField, inputClass } from '../../components/admin/FormField'
+import { ImageUpload } from '../../components/admin/ImageUpload'
 import { Modal } from '../../components/Modal'
 import { ExhibitionCalendar } from '../../components/ExhibitionCalendar'
 import {
@@ -156,9 +157,7 @@ export function ExhibitionManagement() {
           <FormField label="Lieu">
             <input className={inputClass} value={form.location} onChange={(e) => set('location', e.target.value)} />
           </FormField>
-          <FormField label="Affiche (URL)">
-            <input className={inputClass} value={form.posterUrl} onChange={(e) => set('posterUrl', e.target.value)} />
-          </FormField>
+          <ImageUpload label="Affiche" value={form.posterUrl} onChange={(url) => set('posterUrl', url)} />
           <div className="md:col-span-2">
             <FormField label="Description">
               <textarea rows={3} className={inputClass} value={form.description} onChange={(e) => set('description', e.target.value)} />

@@ -41,7 +41,7 @@ export function AdminDashboard() {
       setLastUpdate(new Date())
     }, 30000)
     return () => clearInterval(interval)
-  }, [refetch])
+  }, [])
 
   if (isLoading || !stats)
     return <p className="text-ink/40">Chargement du tableau de bord…</p>
@@ -98,7 +98,7 @@ export function AdminDashboard() {
                 fill="#8884d8"
                 dataKey="value"
               >
-                {categoryData.map((entry, index) => (
+                {categoryData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>

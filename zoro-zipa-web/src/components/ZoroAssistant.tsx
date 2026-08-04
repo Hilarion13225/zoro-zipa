@@ -38,7 +38,7 @@ export function ZoroAssistant() {
           words.some((w) => haystack.toLowerCase().includes(w))
 
         const describe = (a: Artwork) =>
-          `« ${a.title} » (${a.year}) de ${a.artistName} — ${a.technique}. ${a.description}`
+          `« ${a.title} » (${a.year || 'sans date'}) de ${a.artistName} — ${a.technique}. ${a.description}`
 
         if (q.includes('exposition') || q.includes('visite')) {
           const current = exhibitions?.filter((e) => e.current) ?? []

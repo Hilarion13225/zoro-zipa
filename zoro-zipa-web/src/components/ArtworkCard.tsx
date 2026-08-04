@@ -4,6 +4,8 @@ import { Eye, Heart } from 'lucide-react'
 import type { Artwork } from '../types'
 import { useFavorites } from '../store/favorites'
 
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800&q=80'
+
 interface ArtworkCardProps {
   artwork: Artwork
 }
@@ -24,7 +26,7 @@ export function ArtworkCard({ artwork }: ArtworkCardProps) {
       <Link to={`/oeuvres/${artwork.id}`} className="block">
         <div className="aspect-[3/4] overflow-hidden">
           <img
-            src={artwork.imageUrl}
+            src={artwork.imageUrl && artwork.imageUrl.trim() ? artwork.imageUrl : FALLBACK_IMAGE}
             alt={artwork.title}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
