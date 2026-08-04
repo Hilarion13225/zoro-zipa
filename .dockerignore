@@ -1,5 +1,6 @@
 target/
 data/
-zoro-zipa-web/
+zoro-zipa-web/node_modules/
+zoro-zipa-web/dist/
 .git/
 *.log
