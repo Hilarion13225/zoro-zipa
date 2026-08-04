@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: zoro-zipa-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://REMPLACER-PAR-VOTRE-URL-VERCEL.vercel.app
+# Note: Render's free plan has no persistent disk — /app/data resets on
+# every deploy/restart. That's fine here since DataSeeder.java automatically
+# repopulates the demo catalogue on startup if the database is empty.
