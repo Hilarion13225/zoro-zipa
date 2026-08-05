@@ -141,15 +141,6 @@ export const useDeleteEntity = (resource: Resource) => {
   })
 }
 
-// ---------- Exhibitions ----------
-export const useExhibitions = () =>
-  useQuery({
-    queryKey: ['exhibitions'],
-    queryFn: fetchList<Exhibition>('/exhibitions'),
-    refetchInterval: 5000,
-    refetchOnWindowFocus: true,
-  })
-
 // ---------- SoloShows ----------
 export const useSoloShows = () =>
   useQuery({
