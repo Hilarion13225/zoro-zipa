@@ -4,6 +4,12 @@ import type {
   Artist,
   Artwork,
   Exhibition,
+  SoloShow,
+  Media,
+  Product,
+  Masterclass,
+  Performance,
+  PurchaseOrder,
   Gallery,
   Reservation,
   ReservationRequest,
@@ -134,3 +140,66 @@ export const useDeleteEntity = (resource: Resource) => {
     onSuccess: () => qc.invalidateQueries({ queryKey: [resource] }),
   })
 }
+
+// ---------- Exhibitions ----------
+export const useExhibitions = () =>
+  useQuery({
+    queryKey: ['exhibitions'],
+    queryFn: fetchList<Exhibition>('/exhibitions'),
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+  })
+
+// ---------- SoloShows ----------
+export const useSoloShows = () =>
+  useQuery({
+    queryKey: ['solo-shows'],
+    queryFn: fetchList<SoloShow>('/solo-shows'),
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+  })
+
+// ---------- Media ----------
+export const useMedia = () =>
+  useQuery({
+    queryKey: ['media'],
+    queryFn: fetchList<Media>('/media'),
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+  })
+
+// ---------- Products ----------
+export const useProducts = () =>
+  useQuery({
+    queryKey: ['products'],
+    queryFn: fetchList<Product>('/products'),
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+  })
+
+// ---------- Masterclasses ----------
+export const useMasterclasses = () =>
+  useQuery({
+    queryKey: ['masterclasses'],
+    queryFn: fetchList<Masterclass>('/masterclasses'),
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+  })
+
+// ---------- Performances ----------
+export const usePerformances = () =>
+  useQuery({
+    queryKey: ['performances'],
+    queryFn: fetchList<Performance>('/performances'),
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+  })
+
+// ---------- Orders ----------
+export const useOrders = () =>
+  useQuery({
+    queryKey: ['orders'],
+    queryFn: fetchList<PurchaseOrder>('/orders'),
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+  })

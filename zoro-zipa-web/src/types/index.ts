@@ -111,3 +111,73 @@ export interface Stats {
   reservationsByMonth: MonthlyPoint[]
   popularArtworks: PopularArtwork[]
 }
+
+export interface Exhibition {
+  id: number
+  title: string
+  description: string
+  imageUrl: string
+  location: string
+  dates: string
+  active: boolean
+}
+
+export interface SoloShow {
+  id: number
+  title: string
+  description: string
+  imageUrl: string
+  year: string
+  featured: boolean
+}
+
+export interface Media {
+  id: number
+  title: string
+  url: string
+  type: string
+  category: string
+  description: string
+}
+
+export interface Product {
+  id: number
+  title: string
+  description: string
+  imageUrl: string
+  price: number
+  quantity: number
+  category: string
+  available: boolean
+}
+
+export interface Masterclass {
+  id: number
+  imageUrl: string
+  content: string
+  title: string
+  displayOrder: number
+}
+
+export interface Performance {
+  id: number
+  title: string
+  description: string
+  imageUrl: string
+  date: string
+  location: string
+  featured: boolean
+}
+
+export interface PurchaseOrder {
+  id: number
+  productId: number
+  productTitle: string
+  price: number
+  quantity: number
+  customerName: string
+  customerEmail: string
+  customerPhone: string
+  status: string
+  orderDate: string
+}
