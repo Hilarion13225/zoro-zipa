@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react'
-import { CalendarCheck, Image, Palette, RefreshCw, Ticket, Users } from 'lucide-react'
+import { Image, RefreshCw, Ticket, Users } from 'lucide-react'
 import {
   Bar,
   BarChart,
   CartesianGrid,
-  Cell,
   Line,
   LineChart,
-  Pie,
-  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -46,16 +43,6 @@ export function AdminDashboard() {
   if (isLoading || !stats)
     return <p className="text-ink/40">Chargement du tableau de bord…</p>
 
-  const categoryData = stats.artworks > 0
-    ? [
-        { name: 'Peinture', value: Math.floor(stats.artworks * 0.35) },
-        { name: 'Sculpture', value: Math.floor(stats.artworks * 0.25) },
-        { name: 'Photographie', value: Math.floor(stats.artworks * 0.2) },
-        { name: 'Installation', value: Math.floor(stats.artworks * 0.15) },
-        { name: 'Autres', value: Math.ceil(stats.artworks * 0.05) },
-      ]
-    : []
-
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -75,41 +62,16 @@ export function AdminDashboard() {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
-        <StatCard label="Artistes" value={stats.artists} icon={Palette} />
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <StatCard label="Œuvres" value={stats.artworks} icon={Image} delay={0.05} />
         <StatCard label="Visiteurs" value={stats.visitors} icon={Users} delay={0.1} />
-        <StatCard label="Expositions" value={stats.exhibitions} icon={CalendarCheck} delay={0.15} />
-        <StatCard label="Réservations" value={stats.reservations} icon={Ticket} delay={0.2} />
+        <StatCard label="Commandes" value={stats.reservations} icon={Ticket} delay={0.15} />
       </div>
 
-      <div className="mt-8 grid gap-6 xl:grid-cols-3">
+      <div className="mt-8 grid gap-6 xl:grid-cols-2">
         <div className="border border-ink/10 bg-white p-6">
-          <h3 className="mb-5 font-display text-lg">Répartition par catégorie</h3>
-          <ResponsiveContainer width="100%" height={220}>
-            <PieChart>
-              <Pie
-                data={categoryData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, value }) => `${name}: ${value}`}
-                outerRadius={70}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {categoryData.map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className="xl:col-span-2 border border-ink/10 bg-white p-6">
           <h3 className="mb-5 font-display text-lg">Évolution des visiteurs</h3>
-          <ResponsiveContainer width="100%" height={220}>
+          <ResponsiveContainer width="100%" height={260}>
             <LineChart data={stats.visitorsByMonth}>
               <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
               <XAxis dataKey="month" fontSize={11} />
@@ -119,21 +81,6 @@ export function AdminDashboard() {
             </LineChart>
           </ResponsiveContainer>
         </div>
-      </div>
-
-      <div className="mt-6 grid gap-6 xl:grid-cols-2">
-        <div className="border border-ink/10 bg-white p-6">
-          <h3 className="mb-5 font-display text-lg">Réservations par mois</h3>
-          <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={stats.reservationsByMonth}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
-              <XAxis dataKey="month" fontSize={11} />
-              <YAxis fontSize={11} />
-              <Tooltip />
-              <Bar dataKey="value" name="Réservations" fill={INK} radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
 
         <div className="border border-ink/10 bg-white p-6">
           <h3 className="mb-5 font-display text-lg">Œuvres populaires</h3>
@@ -141,9 +88,24 @@ export function AdminDashboard() {
             <BarChart data={stats.popularArtworks} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
               <XAxis type="number" fontSize={11} />
-              <YAxis type="category" dataKey="title" width={180} fontSize={11} />
+              <YAxis type="category" dataKey="title" width={120} fontSize={11} />
               <Tooltip />
               <Bar dataKey="views" name="Vues" fill={GOLD} radius={[0, 4, 4, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <div className="border border-ink/10 bg-white p-6">
+          <h3 className="mb-5 font-display text-lg">Commandes par mois</h3>
+          <ResponsiveContainer width="100%" height={260}>
+            <BarChart data={stats.reservationsByMonth}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
+              <XAxis dataKey="month" fontSize={11} />
+              <YAxis fontSize={11} />
+              <Tooltip />
+              <Bar dataKey="value" name="Commandes" fill={GOLD} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

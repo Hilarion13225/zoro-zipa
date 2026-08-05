@@ -7,11 +7,8 @@ import { useQuickSearch } from '../store/quickSearch'
 
 const links = [
   { to: '/', label: 'Accueil' },
-  { to: '/oeuvres', label: 'Œuvres' },
-  { to: '/artistes', label: 'Artistes' },
-  { to: '/expositions', label: 'Expositions' },
-  { to: '/galeries', label: 'Galeries' },
-  { to: '/visite-virtuelle', label: 'Visite virtuelle' },
+  { to: '/galerie', label: 'Galerie' },
+  { to: '/a-propos', label: 'À propos' },
 ]
 
 /** Global navigation: transparent over the hero, solid ink once scrolled. */

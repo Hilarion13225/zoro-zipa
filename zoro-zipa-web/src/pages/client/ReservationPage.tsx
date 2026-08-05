@@ -26,6 +26,7 @@ export function ReservationPage() {
   const [visitors, setVisitors] = useState(1)
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [ticket, setTicket] = useState<Reservation | null>(null)
 
   const exhibition = useMemo(
@@ -38,13 +39,13 @@ export function ReservationPage() {
     visitDate !== '',
     timeSlot !== '',
     visitors >= 1,
-    fullName.trim() !== '' && email.includes('@'),
+    fullName.trim() !== '' && email.includes('@') && phone.trim() !== '',
   ][step]
 
   const submit = () => {
     if (!exhibitionId) return
     createReservation.mutate(
-      { exhibitionId, visitDate, timeSlot, visitors, fullName, email },
+      { exhibitionId, visitDate, timeSlot, visitors, fullName, email, phone },
       { onSuccess: setTicket },
     )
   }
@@ -218,6 +219,13 @@ export function ReservationPage() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-gold"
+              />
+              <input
+                type="tel"
+                placeholder="Numéro de téléphone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 className="w-full rounded-lg border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-gold"
               />
               {createReservation.isError && (

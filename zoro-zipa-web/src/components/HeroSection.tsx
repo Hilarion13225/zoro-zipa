@@ -1,14 +1,11 @@
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { useArtworks } from '../api/hooks'
 
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1577720580479-7d839d829c73?q=80&w=2400&auto=format&fit=crop'
-
-/** Full-screen immersive hero with a light parallax on scroll. */
+/** Full-screen immersive hero featuring the primary artwork. */
 export function HeroSection() {
   const ref = useRef<HTMLDivElement>(null)
+  const { data: artworks } = useArtworks()
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
@@ -16,15 +13,19 @@ export function HeroSection() {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
+  // Always use image00004 (Écho Urbain) - fallback guaranteed
+  const featuredWork = artworks?.[3]
+  const heroImage = featuredWork?.imageUrl || '/uploads/image00004.jpeg'
+
   return (
     <section ref={ref} className="relative h-screen overflow-hidden bg-ink">
       <motion.div style={{ y }} className="absolute inset-0">
         <img
-          src={HERO_IMAGE}
-          alt="Galerie d'art contemporain"
-          className="h-full w-full object-cover opacity-60"
+          src={heroImage}
+          alt=""
+          className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-transparent to-ink" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/20 via-ink/30 to-ink" />
       </motion.div>
 
       <motion.div
@@ -47,26 +48,6 @@ export function HeroSection() {
         >
           Explorez l'art, découvrez les histoires derrière chaque œuvre.
         </motion.h1>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-10 flex flex-col gap-4 sm:flex-row"
-        >
-          <Link
-            to="/oeuvres"
-            className="group flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-3.5 text-sm font-medium text-ink transition-all hover:bg-gold-soft"
-          >
-            Découvrir les œuvres
-            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-          </Link>
-          <Link
-            to="/expositions"
-            className="rounded-full border border-ivory/40 px-8 py-3.5 text-sm text-ivory transition-all hover:border-gold hover:text-gold"
-          >
-            Explorer les expositions
-          </Link>
-        </motion.div>
       </motion.div>
 
       <motion.div

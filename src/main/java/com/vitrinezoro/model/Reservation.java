@@ -34,6 +34,8 @@ public class Reservation {
 
     private String email;
 
+    private String phone;
+
     @Enumerated(EnumType.STRING)
     private Status status;
 

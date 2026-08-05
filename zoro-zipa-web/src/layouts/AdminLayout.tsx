@@ -2,25 +2,19 @@ import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import {
   BarChart3,
-  Building2,
-  CalendarCheck,
   Image,
   LayoutDashboard,
   Menu,
-  Palette,
-  Ticket,
-  Users,
+  ShoppingCart,
+  User,
   X,
 } from 'lucide-react'
 
 const items = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { to: '/admin/artistes', label: 'Artistes', icon: Palette },
-  { to: '/admin/oeuvres', label: 'Œuvres', icon: Image },
-  { to: '/admin/galeries', label: 'Galeries', icon: Building2 },
-  { to: '/admin/expositions', label: 'Expositions', icon: CalendarCheck },
-  { to: '/admin/reservations', label: 'Réservations', icon: Ticket },
-  { to: '/admin/utilisateurs', label: 'Utilisateurs', icon: Users },
+  { to: '/admin/profil', label: 'Mon Profil', icon: User },
+  { to: '/admin/oeuvres', label: 'Mes Œuvres', icon: Image },
+  { to: '/admin/commandes', label: 'Commandes', icon: ShoppingCart },
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
 ]
 

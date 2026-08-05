@@ -49,9 +49,18 @@ export function ArtworkManagement() {
     setModalOpen(true)
   }
   const submit = () => {
-    if (editing) update.mutate({ id: editing.id, body: form })
-    else create.mutate(form)
-    setModalOpen(false)
+    if (editing) {
+      update.mutate({ id: editing.id, body: form }, {
+        onSuccess: () => setModalOpen(false),
+      })
+    } else {
+      create.mutate(form, {
+        onSuccess: () => {
+          setModalOpen(false)
+          setForm(emptyForm)
+        },
+      })
+    }
   }
 
   const set = <K extends keyof typeof emptyForm>(key: K, value: (typeof emptyForm)[K]) =>
@@ -78,7 +87,16 @@ export function ArtworkManagement() {
         columns={[
           {
             header: 'Image',
-            render: (a) => <img src={a.imageUrl} alt={a.title} className="h-12 w-12 object-cover" />,
+            render: (a) => (
+              <img
+                src={a.imageUrl || 'https://via.placeholder.com/48'}
+                alt={a.title}
+                className="h-12 w-12 object-cover rounded"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/48'
+                }}
+              />
+            ),
           },
           { header: 'Titre', render: (a) => <span className="font-medium">{a.title}</span> },
           { header: 'Artiste', render: (a) => a.artistName },

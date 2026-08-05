@@ -40,6 +40,8 @@ export function ReservationManagement() {
         columns={[
           { header: 'Code', render: (r) => <span className="font-mono text-xs text-gold">{r.code}</span> },
           { header: 'Visiteur', render: (r) => <span className="font-medium">{r.fullName}</span> },
+          { header: 'Email', render: (r) => <span className="text-sm text-ink/70">{r.email}</span> },
+          { header: 'Téléphone', render: (r) => <span className="text-sm text-ink/70">{r.phone}</span> },
           { header: 'Exposition', render: (r) => r.exhibitionTitle },
           { header: 'Date', render: (r) => `${formatDate(r.visitDate)} · ${r.timeSlot}` },
           { header: 'Visiteurs', render: (r) => r.visitors },

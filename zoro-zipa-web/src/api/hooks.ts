@@ -21,7 +21,12 @@ const fetchOne = <T,>(url: string) => async (): Promise<T> =>
 
 // ---------- Artists ----------
 export const useArtists = () =>
-  useQuery({ queryKey: ['artists'], queryFn: fetchList<Artist>('/artists') })
+  useQuery({
+    queryKey: ['artists'],
+    queryFn: fetchList<Artist>('/artists'),
+    refetchInterval: 10000,
+    refetchOnWindowFocus: true,
+  })
 
 export const useArtist = (id: number | undefined) =>
   useQuery({
@@ -32,7 +37,12 @@ export const useArtist = (id: number | undefined) =>
 
 // ---------- Artworks ----------
 export const useArtworks = () =>
-  useQuery({ queryKey: ['artworks'], queryFn: fetchList<Artwork>('/artworks') })
+  useQuery({
+    queryKey: ['artworks'],
+    queryFn: fetchList<Artwork>('/artworks'),
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
+  })
 
 export const useArtwork = (id: number | undefined) =>
   useQuery({
@@ -50,6 +60,8 @@ export const useExhibitions = () =>
   useQuery({
     queryKey: ['exhibitions'],
     queryFn: fetchList<Exhibition>('/exhibitions'),
+    refetchInterval: 5000,
+    refetchOnWindowFocus: true,
   })
 
 export const useExhibition = (id: number | undefined) =>

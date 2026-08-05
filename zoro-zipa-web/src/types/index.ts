@@ -65,6 +65,7 @@ export interface Reservation {
   visitors: number
   fullName: string
   email: string
+  phone: string
   status: ReservationStatus
   code: string
 }
@@ -76,6 +77,7 @@ export interface ReservationRequest {
   visitors: number
   fullName: string
   email: string
+  phone: string
 }
 
 export type UserRole = 'ADMIN' | 'VISITOR' | 'GALLERY'

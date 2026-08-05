@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Image, MapPin, Palette, Search, Ticket } from 'lucide-react'
-import { useArtists, useArtworks, useExhibitions, useGalleries } from '../api/hooks'
+import { Image, Search } from 'lucide-react'
+import { useArtworks } from '../api/hooks'
 import { useQuickSearch } from '../store/quickSearch'
 
-type ResultKind = 'artwork' | 'artist' | 'exhibition' | 'gallery'
+type ResultKind = 'artwork'
 
 interface Result {
   kind: ResultKind
@@ -17,16 +17,10 @@ interface Result {
 
 const kindIcon: Record<ResultKind, typeof Image> = {
   artwork: Image,
-  artist: Palette,
-  exhibition: Ticket,
-  gallery: MapPin,
 }
 
 const kindLabel: Record<ResultKind, string> = {
   artwork: 'Œuvre',
-  artist: 'Artiste',
-  exhibition: 'Exposition',
-  gallery: 'Galerie',
 }
 
 /** Global Cmd/Ctrl+K command palette: instant cross-catalogue search. */
@@ -39,9 +33,6 @@ export function QuickSearch() {
   const navigate = useNavigate()
 
   const { data: artworks } = useArtworks()
-  const { data: artists } = useArtists()
-  const { data: exhibitions } = useExhibitions()
-  const { data: galleries } = useGalleries()
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -68,23 +59,11 @@ export function QuickSearch() {
     if (!q) return []
 
     const artworkResults: Result[] = (artworks ?? [])
-      .filter((a) => a.title.toLowerCase().includes(q) || a.artistName.toLowerCase().includes(q))
-      .map((a) => ({ kind: 'artwork', id: a.id, title: a.title, subtitle: a.artistName, to: `/oeuvres/${a.id}` }))
+      .filter((a) => a.title.toLowerCase().includes(q))
+      .map((a) => ({ kind: 'artwork', id: a.id, title: a.title, subtitle: a.category, to: `/oeuvres/${a.id}` }))
 
-    const artistResults: Result[] = (artists ?? [])
-      .filter((a) => a.name.toLowerCase().includes(q) || a.nationality.toLowerCase().includes(q))
-      .map((a) => ({ kind: 'artist', id: a.id, title: a.name, subtitle: a.nationality, to: `/artistes/${a.id}` }))
-
-    const exhibitionResults: Result[] = (exhibitions ?? [])
-      .filter((e) => e.title.toLowerCase().includes(q) || e.location.toLowerCase().includes(q))
-      .map((e) => ({ kind: 'exhibition', id: e.id, title: e.title, subtitle: e.location, to: `/expositions/${e.id}` }))
-
-    const galleryResults: Result[] = (galleries ?? [])
-      .filter((g) => g.name.toLowerCase().includes(q) || g.city.toLowerCase().includes(q))
-      .map((g) => ({ kind: 'gallery', id: g.id, title: g.name, subtitle: g.city, to: '/galeries' }))
-
-    return [...artworkResults, ...artistResults, ...exhibitionResults, ...galleryResults].slice(0, 8)
-  }, [query, artworks, artists, exhibitions, galleries])
+    return [...artworkResults].slice(0, 8)
+  }, [query, artworks])
 
   const select = (result: Result) => {
     navigate(result.to)

@@ -5,6 +5,7 @@ import com.vitrinezoro.dto.Dtos.ReservationRequest;
 import com.vitrinezoro.model.Reservation;
 import com.vitrinezoro.repository.ExhibitionRepository;
 import com.vitrinezoro.repository.ReservationRepository;
+import com.vitrinezoro.service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class ReservationController {
 
     private final ReservationRepository reservations;
     private final ExhibitionRepository exhibitions;
+    private final EmailService emailService;
 
     @GetMapping
     public List<ReservationDto> list() {
@@ -43,10 +45,13 @@ public class ReservationController {
             .visitors(body.visitors())
             .fullName(body.fullName())
             .email(body.email())
+            .phone(body.phone())
             .status(Reservation.Status.CONFIRMED)
             .code("ZZ-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase())
             .build();
-        return ReservationDto.from(reservations.save(reservation));
+        Reservation saved = reservations.save(reservation);
+        emailService.sendReservationConfirmation(saved);
+        return ReservationDto.from(saved);
     }
 
     @PutMapping("/{id}")
@@ -58,6 +63,7 @@ public class ReservationController {
         if (body.visitors() > 0) reservation.setVisitors(body.visitors());
         if (body.fullName() != null) reservation.setFullName(body.fullName());
         if (body.email() != null) reservation.setEmail(body.email());
+        if (body.phone() != null) reservation.setPhone(body.phone());
         if (body.status() != null) reservation.setStatus(body.status());
         return ReservationDto.from(reservations.save(reservation));
     }

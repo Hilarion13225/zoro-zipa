@@ -20,10 +20,9 @@ export function Footer() {
             Découvrir
           </p>
           <ul className="space-y-2 text-sm text-ivory/70">
-            <li><Link to="/oeuvres" className="hover:text-gold">Œuvres</Link></li>
-            <li><Link to="/artistes" className="hover:text-gold">Artistes</Link></li>
-            <li><Link to="/expositions" className="hover:text-gold">Expositions</Link></li>
-            <li><Link to="/galeries" className="hover:text-gold">Galeries</Link></li>
+            <li><Link to="/galerie" className="hover:text-gold">Galerie</Link></li>
+            <li><Link to="/a-propos" className="hover:text-gold">À propos</Link></li>
+            <li><Link to="/reservation" className="hover:text-gold">Réserver</Link></li>
           </ul>
         </div>
         <div>
@@ -32,7 +31,7 @@ export function Footer() {
           </p>
           <ul className="space-y-3 text-sm text-ivory/70">
             <li className="flex items-center gap-2">
-              <Mail size={14} className="text-gold" /> contact@zorozipa.art
+              <Mail size={14} className="text-gold" /> bruno488@gmail.com
             </li>
             <li className="flex items-center gap-2">
               <MapPin size={14} className="text-gold" /> Abidjan, Côte d'Ivoire

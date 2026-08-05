@@ -9,12 +9,24 @@ import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 
-/** SPA routing: serve index.html for all non-API paths to allow React Router to handle navigation. */
+/** SPA routing + static file serving. */
 @Configuration
 public class SpaWebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // Serve uploaded files
+        registry
+            .addResourceHandler("/uploads/**")
+            .addResourceLocations("file:uploads/")
+            .setCachePeriod(3600);
+
+        // Serve static assets (CSS, JS, images)
+        registry
+            .addResourceHandler("/static/**", "/assets/**", "*.js", "*.css")
+            .addResourceLocations("classpath:/static/");
+
+        // SPA routing: fallback to index.html for React Router
         registry
             .addResourceHandler("/**")
             .addResourceLocations("classpath:/static/")

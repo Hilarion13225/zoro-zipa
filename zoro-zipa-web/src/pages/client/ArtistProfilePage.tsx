@@ -1,36 +1,51 @@
-import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Reveal } from '../../components/Reveal'
 import { ArtworkCard } from '../../components/ArtworkCard'
-import { useArtist, useArtworks } from '../../api/hooks'
+import { useArtists, useArtworks } from '../../api/hooks'
 
-/** Magazine-style artist profile: portrait, biography, journey and works. */
+/** Magazine-style artist profile: Zoro Zipa biography, journey and works. */
 export function ArtistProfilePage() {
-  const { id } = useParams()
-  const artistId = id ? Number(id) : undefined
-  const { data: artist, isLoading } = useArtist(artistId)
+  const { data: artists, isLoading } = useArtists()
   const { data: artworks } = useArtworks()
+
+  // Get the first (and only) artist: Zoro Zipa
+  const artist = artists?.[0]
 
   if (isLoading)
     return <p className="px-6 pt-40 text-center text-ink/40">Chargement du profil…</p>
   if (!artist)
-    return <p className="px-6 pt-40 text-center text-ink/40">Artiste introuvable.</p>
+    return <p className="px-6 pt-40 text-center text-ink/40">Profil introuvable.</p>
 
-  const works = artworks?.filter((a) => a.artistId === artist.id) ?? []
+  const works = artworks ?? []
+  const firstWork = works[0]
+  const artistPhotos = works.slice(0, 3)
+  const galleryWorks = works.filter((_, i) => i !== 3)
 
   return (
     <div>
-      <section className="bg-ink pb-20 pt-32 text-ivory">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-[320px_1fr]">
-          <Reveal>
-            <div className="aspect-[3/4] overflow-hidden">
-              <img
-                src={artist.portraitUrl}
-                alt={artist.name}
-                className="h-full w-full object-cover"
-              />
+      {artistPhotos.length > 0 && (
+        <section className="bg-ink py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {artistPhotos.map((photo) => (
+                <Reveal key={photo.id}>
+                  <div className="aspect-[4/5] overflow-hidden rounded-lg">
+                    <img
+                      src={photo.imageUrl}
+                      alt=""
+                      className="h-full w-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </Reveal>
+              ))}
             </div>
-          </Reveal>
-          <Reveal delay={0.15}>
+          </div>
+        </section>
+      )}
+
+      <section className="bg-ink pb-20 pt-20 text-ivory">
+        <div className="mx-auto max-w-6xl px-6">
+          <Reveal>
             <p className="text-xs uppercase tracking-[0.4em] text-gold">
               {artist.nationality} · {artist.style}
             </p>
@@ -51,18 +66,62 @@ export function ArtistProfilePage() {
         </Reveal>
       </section>
 
+      {firstWork && (
+        <section className="bg-ivory-dim py-20">
+          <div className="mx-auto max-w-7xl px-6">
+            <Reveal>
+              <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4">Signature</p>
+              <h2 className="gold-underline font-display text-3xl mb-12">{firstWork.title}</h2>
+            </Reveal>
+
+            <div className="grid gap-12 lg:grid-cols-2 items-center">
+              <Reveal>
+                <div className="aspect-[4/5] overflow-hidden rounded-lg">
+                  <img
+                    src={firstWork.imageUrl}
+                    alt={firstWork.title}
+                    className="h-full w-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              </Reveal>
+
+              <Reveal delay={0.15}>
+                <div>
+                  <p className="text-sm text-ink/60 mb-6">{firstWork.category} · {firstWork.year}</p>
+                  <p className="font-display text-lg leading-relaxed text-ink/80 mb-6">
+                    {firstWork.description}
+                  </p>
+
+                  <div className="space-y-3 mb-8 text-sm text-ink/70">
+                    <p><span className="text-gold font-semibold">Technique :</span> {firstWork.technique}</p>
+                    <p><span className="text-gold font-semibold">Dimensions :</span> {firstWork.dimensions}</p>
+                  </div>
+
+                  <Link
+                    to={`/oeuvres/${firstWork.id}`}
+                    className="inline-block rounded-full bg-ink px-10 py-4 text-sm font-medium text-ivory transition-all hover:bg-gold hover:text-ink"
+                  >
+                    Voir cette œuvre
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="mx-auto max-w-7xl px-6 pb-24">
         <Reveal>
           <h2 className="gold-underline font-display text-3xl">
-            Œuvres de l'artiste
+            Galerie complète
           </h2>
         </Reveal>
         <div className="mt-10 grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {works.map((a) => (
+          {galleryWorks.map((a) => (
             <ArtworkCard key={a.id} artwork={a} />
           ))}
         </div>
-        {works.length === 0 && (
+        {galleryWorks.length === 0 && (
           <p className="mt-8 text-ink/40">Aucune œuvre publiée pour le moment.</p>
         )}
       </section>

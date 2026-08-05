@@ -1,57 +1,64 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { HeroSection } from '../../components/HeroSection'
-import { SectionTitle } from '../../components/SectionTitle'
 import { ArtworkCard } from '../../components/ArtworkCard'
-import { ArtistCard } from '../../components/ArtistCard'
-import { ExhibitionCard } from '../../components/ExhibitionCard'
-import { GalleryCard } from '../../components/GalleryCard'
 import { Reveal } from '../../components/Reveal'
-import {
-  useArtists,
-  useArtworks,
-  useExhibitions,
-  useGalleries,
-} from '../../api/hooks'
-
-function SectionLink({ to, label }: { to: string; label: string }) {
-  return (
-    <Link
-      to={to}
-      className="group flex items-center gap-2 text-sm text-ink/60 transition-colors hover:text-gold"
-    >
-      {label}
-      <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
-    </Link>
-  )
-}
+import { useArtists, useArtworks } from '../../api/hooks'
 
 export function HomePage() {
-  const { data: exhibitions } = useExhibitions()
-  const { data: artists } = useArtists()
   const { data: artworks } = useArtworks()
-  const { data: galleries } = useGalleries()
+  const { data: artists } = useArtists()
 
-  const current = exhibitions?.filter((e) => e.current).slice(0, 3) ?? []
-  const trending = artworks?.filter((a) => a.trending).slice(0, 4) ?? []
-  const popularArtists = artists?.filter((a) => a.status === 'VALIDATED').slice(0, 4) ?? []
-  const partners = galleries?.filter((g) => g.partner).slice(0, 3) ?? []
+  const allWorks = artworks ?? []
+  const artist = artists?.[0]
+  const artistPhotos = allWorks.slice(0, 3)
 
   return (
     <div>
       <HeroSection />
 
-      <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-        <div className="mb-10 flex items-end justify-between">
-          <SectionTitle eyebrow="À l'affiche" title="Expositions actuelles" />
-          <SectionLink to="/expositions" label="Toutes les expositions" />
-        </div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {current.map((e) => (
-            <ExhibitionCard key={e.id} exhibition={e} />
-          ))}
-        </div>
-      </section>
+      {artist && artistPhotos.length > 0 && (
+        <section className="bg-ivory-dim py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <Reveal>
+              <p className="text-xs uppercase tracking-[0.3em] text-gold mb-2">À propos de l'artiste</p>
+              <h2 className="gold-underline font-display text-3xl mb-12">{artist.name}</h2>
+            </Reveal>
+
+            <div className="grid gap-8 lg:grid-cols-2 items-center">
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
+                {artistPhotos.map((photo, i) => (
+                  <Reveal key={photo.id} delay={i * 0.1}>
+                    <div className="aspect-[4/5] overflow-hidden rounded-lg">
+                      <img
+                        src={photo.imageUrl}
+                        alt=""
+                        className="h-full w-full object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+
+              <Reveal delay={0.3}>
+                <div>
+                  <p className="text-sm text-ink/60 mb-4">{artist.nationality} · {artist.style}</p>
+                  <p className="font-display text-lg italic text-ink/80 mb-6">
+                    « {artist.bio} »
+                  </p>
+                  <Link
+                    to="/a-propos"
+                    className="group inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-gold transition-colors"
+                  >
+                    En savoir plus
+                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="bg-ink py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-6">
@@ -61,46 +68,20 @@ export function HomePage() {
                 La collection
               </p>
               <h2 className="gold-underline font-display text-3xl font-medium text-ivory md:text-4xl">
-                Œuvres tendances
+                Œuvres de Zoro Zipa
               </h2>
             </Reveal>
             <Link
-              to="/oeuvres"
+              to="/galerie"
               className="group flex items-center gap-2 text-sm text-ivory/60 transition-colors hover:text-gold"
             >
-              Tout le catalogue
+              Voir la galerie complète
               <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {trending.map((a) => (
+            {allWorks.map((a) => (
               <ArtworkCard key={a.id} artwork={a} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-        <div className="mb-12 flex items-end justify-between">
-          <SectionTitle eyebrow="Les talents" title="Artistes populaires" />
-          <SectionLink to="/artistes" label="Tous les artistes" />
-        </div>
-        <div className="grid gap-10 grid-cols-2 lg:grid-cols-4">
-          {popularArtists.map((a) => (
-            <ArtistCard key={a.id} artist={a} />
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-ivory-dim py-20 md:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="mb-10 flex items-end justify-between">
-            <SectionTitle eyebrow="Nos lieux" title="Galeries partenaires" />
-            <SectionLink to="/galeries" label="Toutes les galeries" />
-          </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {partners.map((g) => (
-              <GalleryCard key={g.id} gallery={g} />
             ))}
           </div>
         </div>

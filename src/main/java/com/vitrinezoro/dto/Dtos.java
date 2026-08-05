@@ -73,7 +73,7 @@ public final class Dtos {
 
     public record ReservationDto(
         Long id, Long exhibitionId, String exhibitionTitle, LocalDate visitDate,
-        String timeSlot, int visitors, String fullName, String email,
+        String timeSlot, int visitors, String fullName, String email, String phone,
         Reservation.Status status, String code) {
 
         public static ReservationDto from(Reservation r) {
@@ -81,13 +81,13 @@ public final class Dtos {
                 r.getExhibition() != null ? r.getExhibition().getId() : null,
                 r.getExhibition() != null ? r.getExhibition().getTitle() : null,
                 r.getVisitDate(), r.getTimeSlot(), r.getVisitors(),
-                r.getFullName(), r.getEmail(), r.getStatus(), r.getCode());
+                r.getFullName(), r.getEmail(), r.getPhone(), r.getStatus(), r.getCode());
         }
     }
 
     public record ReservationRequest(
         Long exhibitionId, LocalDate visitDate, String timeSlot,
-        int visitors, String fullName, String email, Reservation.Status status) {}
+        int visitors, String fullName, String email, String phone, Reservation.Status status) {}
 
     public record UserDto(
         Long id, String name, String email, User.Role role,
