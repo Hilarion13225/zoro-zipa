@@ -1,5 +1,6 @@
 com\vitrinezoro\model\User$Role.class
 com\vitrinezoro\web\UploadController.class
+com\vitrinezoro\config\CorsConfig.class
 com\vitrinezoro\repository\GalleryRepository.class
 com\vitrinezoro\model\User.class
 com\vitrinezoro\web\ExhibitionController.class

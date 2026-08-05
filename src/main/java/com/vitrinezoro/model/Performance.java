@@ -2,14 +2,14 @@ package com.vitrinezoro.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity @Table(name = "exhibitions")
+@Entity @Table(name = "performances")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class Exhibition {
+public class Performance {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
     private String title;
     private String description;
     private String imageUrl;
+    private String date;
     private String location;
-    private String dates;
-    private boolean active;
+    private boolean featured;
 }

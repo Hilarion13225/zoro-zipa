@@ -5,31 +5,62 @@ import { HomePage } from './pages/client/HomePage'
 import { ArtworkCatalogPage } from './pages/client/ArtworkCatalogPage'
 import { ArtworkDetailPage } from './pages/client/ArtworkDetailPage'
 import { ArtistProfilePage } from './pages/client/ArtistProfilePage'
-import { ReservationPage } from './pages/client/ReservationPage'
 import { FavoritesPage } from './pages/client/FavoritesPage'
+import { ExhibitionPage } from './pages/client/ExhibitionPage'
+import { SoloShowPage } from './pages/client/SoloShowPage'
+import { MediaPage } from './pages/client/MediaPage'
+import { ShopPage } from './pages/client/ShopPage'
+import { MasterclassPage } from './pages/client/MasterclassPage'
 import { AdminDashboard } from './pages/admin/AdminDashboard'
 import { ArtworkManagement } from './pages/admin/ArtworkManagement'
-import { ReservationManagement } from './pages/admin/ReservationManagement'
+import { OrderManagement } from './pages/admin/OrderManagement'
 import { AnalyticsPage } from './pages/admin/AnalyticsPage'
 import { ProfileManagement } from './pages/admin/ProfileManagement'
+import { ExhibitionManagement } from './pages/admin/ExhibitionManagement'
+import { SoloShowManagement } from './pages/admin/SoloShowManagement'
+import { MediaManagement } from './pages/admin/MediaManagement'
+import { ProductManagement } from './pages/admin/ProductManagement'
+import { MasterclassManagement } from './pages/admin/MasterclassManagement'
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<ClientLayout />}>
+          {/* Main Pages */}
           <Route path="/" element={<HomePage />} />
+          <Route path="/a-propos" element={<ArtistProfilePage />} />
+          <Route path="/favoris" element={<FavoritesPage />} />
+
+          {/* Exploration Section */}
           <Route path="/galerie" element={<ArtworkCatalogPage />} />
           <Route path="/oeuvres/:id" element={<ArtworkDetailPage />} />
-          <Route path="/a-propos" element={<ArtistProfilePage />} />
-          <Route path="/reservation" element={<ReservationPage />} />
-          <Route path="/favoris" element={<FavoritesPage />} />
+          <Route path="/exhibition" element={<ExhibitionPage />} />
+          <Route path="/solo-show" element={<SoloShowPage />} />
+          <Route path="/media" element={<MediaPage />} />
+          <Route path="/masterclass" element={<MasterclassPage />} />
+
+          {/* Shop */}
+          <Route path="/shop" element={<ShopPage />} />
         </Route>
+
+        {/* Admin Panel */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="profil" element={<ProfileManagement />} />
+
+          {/* Content Management */}
           <Route path="oeuvres" element={<ArtworkManagement />} />
-          <Route path="commandes" element={<ReservationManagement />} />
+          <Route path="exhibitions" element={<ExhibitionManagement />} />
+          <Route path="solo-shows" element={<SoloShowManagement />} />
+          <Route path="media" element={<MediaManagement />} />
+          <Route path="masterclass" element={<MasterclassManagement />} />
+
+          {/* Shop & Orders */}
+          <Route path="products" element={<ProductManagement />} />
+          <Route path="orders" element={<OrderManagement />} />
+
+          {/* Analytics */}
           <Route path="analytics" element={<AnalyticsPage />} />
         </Route>
       </Routes>

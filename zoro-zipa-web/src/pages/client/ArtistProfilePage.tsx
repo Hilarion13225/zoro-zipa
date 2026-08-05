@@ -59,10 +59,40 @@ export function ArtistProfilePage() {
 
       <section className="mx-auto max-w-4xl px-6 py-20">
         <Reveal>
-          <h2 className="gold-underline font-display text-3xl">Parcours</h2>
-          <p className="mt-8 whitespace-pre-line leading-loose text-ink/70">
-            {artist.journey}
-          </p>
+          <h2 className="gold-underline font-display text-3xl mb-12">Parcours de l'Innovateur Urbain</h2>
+
+          <div className="space-y-12">
+            <div>
+              <h3 className="font-display text-2xl text-gold mb-4">Graffiti : Les Origines</h3>
+              <p className="text-ink/70 leading-relaxed">
+                Zoro Zipa débute avec le graffiti, explorant les murs d'Abidjan comme toile vierge. Ces premières touches marquent le début d'une transformation urbaine.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-display text-2xl text-gold mb-4">Basquiat : L'Inspiration Mondiale</h3>
+              <p className="text-ink/70 leading-relaxed">
+                Influencé par Jean-Michel Basquiat, Zoro Zipa fusionne le graffiti avec l'art contemporain, créant une voix unique qui mélange figuration brute et abstraction poétique.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-display text-2xl text-gold mb-4">Banksy : L'Art Engagé</h3>
+              <p className="text-ink/70 leading-relaxed">
+                L'art politique et social de Banksy inspire Zoro Zipa à donner du sens à chaque coup de pinceau. L'art urbain devient un cri d'expression.
+              </p>
+            </div>
+
+            <div className="border-t border-ink/10 pt-12">
+              <h3 className="font-display text-2xl text-gold mb-4">Zoro Zipa : L'Innovateur d'Afrique</h3>
+              <p className="text-ink/70 leading-relaxed whitespace-pre-line">
+                {artist.journey}
+              </p>
+              <p className="text-ink/70 leading-relaxed mt-6">
+                Aujourd'hui, Zoro Zipa se positionne comme innovateur urbain en Afrique, transformant les murs d'Abidjan en galeries à ciel ouvert, célébrant la vie citadine africaine avec audace et authenticité.
+              </p>
+            </div>
+          </div>
         </Reveal>
       </section>
 

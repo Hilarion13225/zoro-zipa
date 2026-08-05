@@ -87,23 +87,64 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* Domaines de Prédilection */}
+      <section className="bg-ivory-dim py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <Reveal>
+            <p className="text-xs uppercase tracking-[0.3em] text-gold mb-2">Spécialités</p>
+            <h2 className="gold-underline font-display text-3xl mb-12">Domaines de Prédilection</h2>
+          </Reveal>
+
+          <div className="grid gap-8 md:grid-cols-3">
+            <Reveal>
+              <div className="bg-white p-8 rounded-lg">
+                <div className="text-4xl mb-4">🎭</div>
+                <h3 className="font-display text-2xl mb-4">Performance</h3>
+                <p className="text-ink/70">
+                  L'art en mouvement, l'expression vivante de l'imagination urbaine. Zoro Zipa transforme l'espace en expérience sensorielle.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="bg-white p-8 rounded-lg">
+                <div className="text-4xl mb-4">🏗️</div>
+                <h3 className="font-display text-2xl mb-4">Installation</h3>
+                <p className="text-ink/70">
+                  Sculptures monumentales et installations immersives qui dialoguent avec l'architecture urbaine. L'art occupe l'espace.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <div className="bg-white p-8 rounded-lg">
+                <div className="text-4xl mb-4">🗿</div>
+                <h3 className="font-display text-2xl mb-4">Sculpture</h3>
+                <p className="text-ink/70">
+                  Formes tridimensionnelles qui capturent l'essence du mouvement. Chaque sculpture raconte une histoire urbaine.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-ink py-24 text-center">
         <Reveal className="mx-auto max-w-2xl px-6">
           <p className="mb-3 text-xs uppercase tracking-[0.4em] text-gold">
-            Vivez l'expérience
+            Explorez & Découvrez
           </p>
           <h2 className="font-display text-3xl text-ivory md:text-5xl">
-            Réservez votre prochaine visite
+            Découvrez la Boutique
           </h2>
           <p className="mt-4 text-ivory/60">
-            Choisissez une exposition, une date, un horaire — et recevez votre
-            billet avec QR code.
+            Explorez et commandez les œuvres et produits de Zoro Zipa
           </p>
           <Link
-            to="/reservation"
+            to="/shop"
             className="mt-8 inline-block rounded-full bg-gold px-10 py-4 text-sm font-medium text-ink transition-colors hover:bg-gold-soft"
           >
-            Réserver une visite
+            Aller à la boutique
           </Link>
         </Reveal>
       </section>

@@ -13,8 +13,19 @@ import {
 const items = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/admin/profil', label: 'Mon Profil', icon: User },
-  { to: '/admin/oeuvres', label: 'Mes Œuvres', icon: Image },
-  { to: '/admin/commandes', label: 'Commandes', icon: ShoppingCart },
+
+  // Content
+  { to: '/admin/oeuvres', label: 'Galerie', icon: Image },
+  { to: '/admin/exhibitions', label: 'Expositions', icon: Image },
+  { to: '/admin/solo-shows', label: 'Solo Shows', icon: Image },
+  { to: '/admin/media', label: 'Média', icon: Image },
+  { to: '/admin/masterclass', label: 'Masterclass', icon: Image },
+
+  // Shop
+  { to: '/admin/products', label: 'Produits', icon: ShoppingCart },
+  { to: '/admin/orders', label: 'Commandes', icon: ShoppingCart },
+
+  // Analytics
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
 ]
 
