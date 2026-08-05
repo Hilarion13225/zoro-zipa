@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { AccessGate } from './components/AccessGate'
 import { ClientLayout } from './layouts/ClientLayout'
 import { AdminLayout } from './layouts/AdminLayout'
 import { HomePage } from './pages/client/HomePage'
@@ -26,7 +27,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<ClientLayout />}>
+        <Route element={<AccessGate><ClientLayout /></AccessGate>}>
           {/* Main Pages */}
           <Route path="/" element={<HomePage />} />
           <Route path="/a-propos" element={<ArtistProfilePage />} />
@@ -45,7 +46,7 @@ export default function App() {
         </Route>
 
         {/* Admin Panel */}
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route path="/admin" element={<AccessGate adminMode><AdminLayout /></AccessGate>}>
           <Route index element={<AdminDashboard />} />
           <Route path="profil" element={<ProfileManagement />} />
 
