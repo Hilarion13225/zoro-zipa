@@ -35,6 +35,7 @@ com\vitrinezoro\config\FileStorageConfig.class
 com\vitrinezoro\repository\MasterclassRepository.class
 com\vitrinezoro\web\MasterclassController.class
 com\vitrinezoro\web\ArtistController.class
+com\vitrinezoro\web\FileUploadController.class
 com\vitrinezoro\web\SoloShowController.class
 com\vitrinezoro\service\EmailService.class
 com\vitrinezoro\repository\OrderRepository.class

@@ -1,13 +1,15 @@
 import type { FormEvent } from 'react'
 import { useState } from 'react'
 import { X } from 'lucide-react'
+import { FileUploader } from './FileUploader'
 
 interface Field {
   name: string
   label: string
-  type: 'text' | 'textarea' | 'number' | 'url' | 'checkbox'
+  type: 'text' | 'textarea' | 'number' | 'url' | 'checkbox' | 'file'
   required?: boolean
   placeholder?: string
+  accept?: string
 }
 
 interface EntityFormProps {
@@ -99,6 +101,17 @@ export function EntityForm({
                   checked={formData[field.name] || false}
                   onChange={handleChange}
                   className="h-4 w-4 accent-gold"
+                />
+              ) : field.type === 'file' ? (
+                <FileUploader
+                  acceptedTypes={field.accept || 'image/*'}
+                  onFileSelected={(file) => {
+                    setFormData((prev) => ({
+                      ...prev,
+                      [field.name]: file.url,
+                      [`${field.name}Id`]: file.fileId,
+                    }))
+                  }}
                 />
               ) : (
                 <input
