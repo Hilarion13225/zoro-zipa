@@ -7,8 +7,8 @@ interface AccessGateProps {
 
 const ACCESS_KEY = 'zoro_site_access'
 const ADMIN_KEY = 'zoro_admin_access'
-const SITE_PASSWORD = 'ZoroZipa2024'
-const ADMIN_PASSWORD = 'AdminZoro2024'
+const SITE_PASSWORD = 'zoro-zipa-urbain'
+const ADMIN_PASSWORD = 'zoro-zipa-urbain'
 
 export function AccessGate({ children, adminMode = false }: AccessGateProps) {
   const [hasAccess, setHasAccess] = useState(false)
