@@ -17,7 +17,6 @@ public class DataSeeder implements CommandLineRunner {
     private final ArtistRepository artists;
     private final ArtworkRepository artworks;
     private final GalleryRepository galleries;
-    private final ExhibitionRepository exhibitions;
     private final ReservationRepository reservations;
     private final UserRepository users;
 
@@ -59,20 +58,11 @@ public class DataSeeder implements CommandLineRunner {
                 "Les voix de la ville résonnent dans cette composition abstraite urbaine, où chaque coup de pinceau raconte une histoire.",
                 local("image00004.jpeg"))));
 
-        LocalDate today = LocalDate.now();
-        Exhibition zoroExpo = exhibition("Zoro Zipa - Urban Art", main, "Abidjan, Plateau",
-            "Exposition exclusive des œuvres urbaines de Zoro Zipa. Une célébration de l'art urbain africain à travers ses compositions vibrantes et engagées.",
-            "photo-1518998053901-5348d3961a04", today.minusDays(10), today.plusDays(60),
-            List.of(zoro));
-        exhibitions.saveAll(List.of(zoroExpo));
+        // Exhibitions, Solo Shows, Media, Products, and Masterclasses can be managed via admin panel
 
         users.saveAll(List.of(
             user("Zoro Zipa", "contact@zorozipa.com", User.Role.ADMIN),
             user("Kouassi Konan", "kouassi@zorozipa.com", User.Role.GALLERY)));
-
-        reservations.saveAll(List.of(
-            reservation(zoroExpo, today.plusDays(5), "10:00", 2, "Visiteur", "visitor@zorozipa.com", "+225 01 23 45 67"),
-            reservation(zoroExpo, today.plusDays(15), "14:00", 1, "Collectionneur", "collector@zorozipa.com", "+225 98 76 54 32")));
     }
 
     private Artist artist(String name, String photo, String nationality, String style, String bio, String journey) {
@@ -119,19 +109,6 @@ public class DataSeeder implements CommandLineRunner {
             .build();
     }
 
-    private Exhibition exhibition(String title, Gallery gallery, String location, String description,
-                                  String photo, LocalDate start, LocalDate end, List<Artist> artists) {
-        return Exhibition.builder()
-            .title(title)
-            .gallery(gallery)
-            .location(location)
-            .description(description)
-            .posterUrl(unsplash(photo))
-            .startDate(start)
-            .endDate(end)
-            .artists(artists)
-            .build();
-    }
 
     private User user(String name, String email, User.Role role) {
         return User.builder()

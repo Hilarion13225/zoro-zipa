@@ -1,4 +1,4 @@
-﻿package com.vitrinezoro.web;
+package com.vitrinezoro.web;
 import com.vitrinezoro.model.PurchaseOrder;
 import com.vitrinezoro.repository.PurchaseOrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public class PurchaseOrderController {
     @PostMapping public PurchaseOrder create(@RequestBody PurchaseOrder body) { return repo.save(body); }
     @PutMapping("/{id}") public PurchaseOrder update(@PathVariable Long id, @RequestBody PurchaseOrder body) {
         PurchaseOrder e = repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        if (body.getTitle() != null) e.setTitle(body.getTitle());
+        if (body.getStatus() != null) e.setStatus(body.getStatus());
         return repo.save(e);
     }
     @DeleteMapping("/{id}") @ResponseStatus(HttpStatus.NO_CONTENT) public void delete(@PathVariable Long id) { repo.deleteById(id); }

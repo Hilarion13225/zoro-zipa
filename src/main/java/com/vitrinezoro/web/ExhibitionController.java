@@ -1,4 +1,4 @@
-﻿package com.vitrinezoro.web;
+package com.vitrinezoro.web;
 import com.vitrinezoro.model.Exhibition;
 import com.vitrinezoro.repository.ExhibitionRepository;
 import lombok.RequiredArgsConstructor;

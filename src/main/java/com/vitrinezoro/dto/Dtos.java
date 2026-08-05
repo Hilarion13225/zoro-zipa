@@ -50,26 +50,18 @@ public final class Dtos {
     }
 
     public record ExhibitionDto(
-        Long id, String title, String description, String posterUrl,
-        LocalDate startDate, LocalDate endDate, String location,
-        Long galleryId, String galleryName,
-        List<Long> artistIds, List<String> artistNames, boolean current) {
+        Long id, String title, String description, String imageUrl,
+        String location, String dates, boolean active) {
 
         public static ExhibitionDto from(Exhibition e) {
-            return new ExhibitionDto(e.getId(), e.getTitle(), e.getDescription(), e.getPosterUrl(),
-                e.getStartDate(), e.getEndDate(), e.getLocation(),
-                e.getGallery() != null ? e.getGallery().getId() : null,
-                e.getGallery() != null ? e.getGallery().getName() : null,
-                e.getArtists().stream().map(Artist::getId).toList(),
-                e.getArtists().stream().map(Artist::getName).toList(),
-                e.isCurrent());
+            return new ExhibitionDto(e.getId(), e.getTitle(), e.getDescription(), e.getImageUrl(),
+                e.getLocation(), e.getDates(), e.isActive());
         }
     }
 
     public record ExhibitionRequest(
-        String title, String description, String posterUrl,
-        LocalDate startDate, LocalDate endDate, String location,
-        Long galleryId, List<Long> artistIds) {}
+        String title, String description, String imageUrl,
+        String location, String dates, boolean active) {}
 
     public record ReservationDto(
         Long id, Long exhibitionId, String exhibitionTitle, LocalDate visitDate,

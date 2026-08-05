@@ -1,4 +1,4 @@
-﻿package com.vitrinezoro.web;
+package com.vitrinezoro.web;
 import com.vitrinezoro.model.Performance;
 import com.vitrinezoro.repository.PerformanceRepository;
 import lombok.RequiredArgsConstructor;
