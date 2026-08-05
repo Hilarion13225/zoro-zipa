@@ -13,7 +13,6 @@ export function ProfileManagement() {
   const artist = artists?.[0] // Zoro Zipa (first and only artist)
   const [modalOpen, setModalOpen] = useState(false)
   const [form, setForm] = useState<Partial<Artist> | null>(null)
-  const [saving, setSaving] = useState(false)
 
   const openEdit = () => {
     if (artist) {
@@ -170,10 +169,9 @@ export function ProfileManagement() {
 
           <button
             type="submit"
-            disabled={saving}
-            className="rounded-full bg-ink px-8 py-3 text-sm text-ivory transition-colors hover:bg-gold hover:text-ink disabled:opacity-50 md:col-span-2"
+            className="rounded-full bg-ink px-8 py-3 text-sm text-ivory transition-colors hover:bg-gold hover:text-ink md:col-span-2"
           >
-            {saving ? 'Enregistrement...' : 'Enregistrer les modifications'}
+            Enregistrer les modifications
           </button>
         </form>
       </Modal>

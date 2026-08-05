@@ -16,8 +16,6 @@ import { StatCard } from '../../components/admin/StatCard'
 import { useStats } from '../../api/hooks'
 
 const GOLD = '#c6a15b'
-const INK = '#0b0b0b'
-const COLORS = ['#c6a15b', '#d4b896', '#b8936e', '#9e7c54', '#8a6a43']
 
 /** Overview: KPI tiles + visitors, popular artworks and reservations charts. */
 export function AdminDashboard() {
