@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
-import { AtSign, Mail, MapPin, Settings } from 'lucide-react'
+import { AtSign, LogOut, Mail, MapPin, Settings } from 'lucide-react'
+import { logoutSite } from '../utils/auth'
 
 export function Footer() {
   return (
@@ -44,8 +45,15 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-ivory/10 py-6 text-center text-xs text-ivory/40">
-        © {new Date().getFullYear()} Zoro-Zipa — L'art contemporain, autrement.
+      <div className="flex flex-col items-center gap-2 border-t border-ivory/10 py-6 text-center text-xs text-ivory/40 sm:flex-row sm:justify-center sm:gap-4">
+        <span>© {new Date().getFullYear()} Zoro-Zipa — L'art contemporain, autrement.</span>
+        <button
+          onClick={logoutSite}
+          className="inline-flex items-center gap-1 text-ivory/30 transition-colors hover:text-gold/60"
+        >
+          <LogOut size={11} />
+          Se déconnecter
+        </button>
       </div>
     </footer>
   )
