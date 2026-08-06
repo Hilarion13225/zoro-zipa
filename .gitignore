@@ -2,3 +2,4 @@
 "data/" 
 "zoro-zipa-web/.env.local" 
 "zoro-zipa-web/dist/" 
+".env"

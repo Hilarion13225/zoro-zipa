@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zoro-backend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8081:8081"
+    environment:
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./zoro-zipa-web
+      dockerfile: Dockerfile
+    container_name: zoro-frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      - backend
