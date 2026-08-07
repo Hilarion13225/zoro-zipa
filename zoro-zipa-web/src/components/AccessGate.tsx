@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react'
+import { ACCESS_KEY, ADMIN_KEY, SITE_PASSWORD, ADMIN_PASSWORD } from '../utils/auth'
 
 interface AccessGateProps {
   children: React.ReactNode
   adminMode?: boolean
 }
-
-const ACCESS_KEY = 'zoro_site_access'
-const ADMIN_KEY = 'zoro_admin_access'
-const SITE_PASSWORD = 'zoro-zipa-urbain2026'
-const ADMIN_PASSWORD = 'qwertyuiop123456789'
 
 export function AccessGate({ children, adminMode = false }: AccessGateProps) {
   const [hasAccess, setHasAccess] = useState(false)

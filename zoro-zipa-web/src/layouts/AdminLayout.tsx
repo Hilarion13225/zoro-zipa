@@ -4,11 +4,13 @@ import {
   BarChart3,
   Image,
   LayoutDashboard,
+  LogOut,
   Menu,
   ShoppingCart,
   User,
   X,
 } from 'lucide-react'
+import { logoutAdmin } from '../utils/auth'
 
 const items = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
@@ -66,17 +68,26 @@ export function AdminLayout() {
           </span>
         </Link>
         {nav}
-        <Link
-          to="/"
-          className="mt-auto px-7 text-xs text-ivory/40 transition-colors hover:text-gold"
-        >
-          ← Retour au site
-        </Link>
+        <div className="mt-auto flex flex-col gap-3 px-7">
+          <button
+            onClick={logoutAdmin}
+            className="flex items-center gap-2 text-xs text-ivory/40 transition-colors hover:text-red-400"
+          >
+            <LogOut size={14} />
+            Se déconnecter
+          </button>
+          <Link
+            to="/"
+            className="text-xs text-ivory/40 transition-colors hover:text-gold"
+          >
+            ← Retour au site
+          </Link>
+        </div>
       </aside>
 
       {open && (
         <div className="fixed inset-0 z-40 flex lg:hidden">
-          <div className="w-64 bg-ink py-6">
+          <div className="flex w-64 flex-col bg-ink py-6">
             <div className="mb-6 flex items-center justify-between px-6">
               <span className="font-display text-xl text-ivory">Admin</span>
               <button onClick={() => setOpen(false)} className="text-ivory" aria-label="Fermer le menu">
@@ -84,6 +95,13 @@ export function AdminLayout() {
               </button>
             </div>
             {nav}
+            <button
+              onClick={logoutAdmin}
+              className="mt-auto flex items-center gap-2 px-7 pt-4 text-xs text-ivory/40 transition-colors hover:text-red-400"
+            >
+              <LogOut size={14} />
+              Se déconnecter
+            </button>
           </div>
           <button
             className="flex-1 bg-ink/50"
