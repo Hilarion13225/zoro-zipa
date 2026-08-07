@@ -12,6 +12,7 @@ import { SoloShowPage } from './pages/client/SoloShowPage'
 import { MediaPage } from './pages/client/MediaPage'
 import { ShopPage } from './pages/client/ShopPage'
 import { MasterclassPage } from './pages/client/MasterclassPage'
+import { AdminLoginPage } from './pages/AdminLoginPage'
 import { AdminDashboard } from './pages/admin/AdminDashboard'
 import { ArtworkManagement } from './pages/admin/ArtworkManagement'
 import { OrderManagement } from './pages/admin/OrderManagement'
@@ -27,6 +28,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Admin Login */}
+        <Route path="/admin-login" element={<AdminLoginPage />} />
+
+        {/* Client Site */}
         <Route element={<AccessGate><ClientLayout /></AccessGate>}>
           {/* Main Pages */}
           <Route path="/" element={<HomePage />} />
