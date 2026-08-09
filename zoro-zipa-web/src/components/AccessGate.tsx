@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ACCESS_KEY, ADMIN_KEY, SITE_PASSWORD, ADMIN_PASSWORD } from '../utils/auth'
 
 interface AccessGateProps {
@@ -7,6 +8,7 @@ interface AccessGateProps {
 }
 
 export function AccessGate({ children, adminMode = false }: AccessGateProps) {
+  const navigate = useNavigate()
   const [hasAccess, setHasAccess] = useState(false)
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -25,15 +27,25 @@ export function AccessGate({ children, adminMode = false }: AccessGateProps) {
     e.preventDefault()
     setError('')
 
-    const correctPassword = adminMode ? ADMIN_PASSWORD : SITE_PASSWORD
-    if (password === correctPassword) {
-      const key = adminMode ? ADMIN_KEY : ACCESS_KEY
-      localStorage.setItem(key, 'true')
+    // Check if it's admin password
+    if (password === ADMIN_PASSWORD) {
+      localStorage.setItem(ADMIN_KEY, 'true')
+      localStorage.setItem(ACCESS_KEY, 'true')
+      navigate('/admin')
       setHasAccess(true)
-    } else {
-      setError('Mot de passe incorrect')
-      setPassword('')
+      return
     }
+
+    // Check if it's client password
+    if (password === SITE_PASSWORD) {
+      localStorage.setItem(ACCESS_KEY, 'true')
+      setHasAccess(true)
+      return
+    }
+
+    // Wrong password
+    setError('Mot de passe incorrect')
+    setPassword('')
   }
 
   if (loading) return null
@@ -45,20 +57,20 @@ export function AccessGate({ children, adminMode = false }: AccessGateProps) {
           <div className="text-center mb-12">
             <h1 className="font-display text-5xl text-gold mb-2">Zoro Zipa</h1>
             <p className="text-ivory/60 text-sm">
-              {adminMode ? 'Portail Administration' : 'Portfolio Privé'}
+              Accès Sécurisé
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm text-ivory/80 mb-2">
-                Mot de passe {adminMode ? 'Admin' : 'Accès'}
+                Mot de passe
               </label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Entrez le mot de passe"
+                placeholder="Entrez votre mot de passe"
                 className="w-full px-4 py-3 rounded-lg bg-ivory/10 border border-gold/30 text-ivory placeholder-ivory/40 focus:outline-none focus:border-gold transition-colors"
                 autoFocus
               />
@@ -78,13 +90,11 @@ export function AccessGate({ children, adminMode = false }: AccessGateProps) {
             </button>
           </form>
 
-          {!adminMode && (
-            <div className="mt-8 text-center">
-              <p className="text-ivory/40 text-xs">
-                Portfolio Officiel de Zoro Zipa
-              </p>
-            </div>
-          )}
+          <div className="mt-8 text-center">
+            <p className="text-ivory/40 text-xs">
+              Portfolio Officiel de Zoro Zipa - Accès Privé
+            </p>
+          </div>
         </div>
       </div>
     )
