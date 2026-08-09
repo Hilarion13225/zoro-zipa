@@ -15,6 +15,10 @@ public class MediaController {
     @PutMapping("/{id}") public Media update(@PathVariable Long id, @RequestBody Media body) {
         Media e = repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (body.getTitle() != null) e.setTitle(body.getTitle());
+        if (body.getUrl() != null) e.setUrl(body.getUrl());
+        if (body.getType() != null) e.setType(body.getType());
+        if (body.getCategory() != null) e.setCategory(body.getCategory());
+        if (body.getDescription() != null) e.setDescription(body.getDescription());
         return repo.save(e);
     }
     @DeleteMapping("/{id}") @ResponseStatus(HttpStatus.NO_CONTENT) public void delete(@PathVariable Long id) { repo.deleteById(id); }

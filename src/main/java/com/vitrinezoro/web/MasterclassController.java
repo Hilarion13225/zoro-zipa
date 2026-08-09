@@ -15,6 +15,9 @@ public class MasterclassController {
     @PutMapping("/{id}") public Masterclass update(@PathVariable Long id, @RequestBody Masterclass body) {
         Masterclass e = repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (body.getTitle() != null) e.setTitle(body.getTitle());
+        if (body.getImageUrl() != null) e.setImageUrl(body.getImageUrl());
+        if (body.getContent() != null) e.setContent(body.getContent());
+        e.setDisplayOrder(body.getDisplayOrder());
         return repo.save(e);
     }
     @DeleteMapping("/{id}") @ResponseStatus(HttpStatus.NO_CONTENT) public void delete(@PathVariable Long id) { repo.deleteById(id); }

@@ -15,6 +15,12 @@ public class PurchaseOrderController {
     @PutMapping("/{id}") public PurchaseOrder update(@PathVariable Long id, @RequestBody PurchaseOrder body) {
         PurchaseOrder e = repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (body.getStatus() != null) e.setStatus(body.getStatus());
+        if (body.getProductTitle() != null) e.setProductTitle(body.getProductTitle());
+        e.setPrice(body.getPrice());
+        e.setQuantity(body.getQuantity());
+        if (body.getCustomerName() != null) e.setCustomerName(body.getCustomerName());
+        if (body.getCustomerEmail() != null) e.setCustomerEmail(body.getCustomerEmail());
+        if (body.getCustomerPhone() != null) e.setCustomerPhone(body.getCustomerPhone());
         return repo.save(e);
     }
     @DeleteMapping("/{id}") @ResponseStatus(HttpStatus.NO_CONTENT) public void delete(@PathVariable Long id) { repo.deleteById(id); }

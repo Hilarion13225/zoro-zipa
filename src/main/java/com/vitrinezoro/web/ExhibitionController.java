@@ -15,6 +15,10 @@ public class ExhibitionController {
     @PutMapping("/{id}") public Exhibition update(@PathVariable Long id, @RequestBody Exhibition body) {
         Exhibition e = repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (body.getTitle() != null) e.setTitle(body.getTitle());
+        if (body.getDescription() != null) e.setDescription(body.getDescription());
+        if (body.getImageUrl() != null) e.setImageUrl(body.getImageUrl());
+        if (body.getLocation() != null) e.setLocation(body.getLocation());
+        if (body.getDates() != null) e.setDates(body.getDates());
         e.setActive(body.isActive());
         return repo.save(e);
     }
