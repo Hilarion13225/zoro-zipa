@@ -1,28 +1,68 @@
-version: "3.8"
+version: '3.9'
 
 services:
   backend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: zoro-backend
-    restart: unless-stopped
+    build: .
+    container_name: zoro-zipa-backend
     ports:
-      - "127.0.0.1:8081:8081"
+      - "8080:8080"
     environment:
-      - MAIL_USERNAME=${MAIL_USERNAME}
-      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      SPRING_DATASOURCE_URL: jdbc:h2:file:/app/data/zoro-zipa;MODE=LEGACY
+      APP_FILE_STORAGE_UPLOAD_DIR: /app/uploads
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      SERVER_PORT: 8080
     volumes:
-      - ./data:/app/data
-      - ./uploads:/app/uploads
+      - zoro-data:/app/data
+      - zoro-uploads:/app/uploads
+    networks:
+      - zoro-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   frontend:
     build:
       context: ./zoro-zipa-web
       dockerfile: Dockerfile
-    container_name: zoro-frontend
-    restart: unless-stopped
+    container_name: zoro-zipa-frontend
     ports:
-      - "127.0.0.1:8080:80"
+      - "3000:80"
+    environment:
+      VITE_API_URL: http://backend:8080/api
     depends_on:
       - backend
+    networks:
+      - zoro-network
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: zoro-zipa-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - zoro-uploads:/var/www/uploads:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - zoro-network
+    restart: unless-stopped
+
+volumes:
+  zoro-data:
+    driver: local
+  zoro-uploads:
+    driver: local
+
+networks:
+  zoro-network:
+    driver: bridge

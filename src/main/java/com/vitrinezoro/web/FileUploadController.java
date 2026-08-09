@@ -20,6 +20,11 @@ public class FileUploadController {
     @Value("${app.file-storage.upload-dir:uploads}")
     private String uploadDir;
 
+    // Configuration
+    private static final long MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
+    private static final String[] ALLOWED_EXTENSIONS = {"jpg", "jpeg", "png", "gif", "webp", "svg", "pdf", "doc", "docx", "xls", "xlsx"};
+    private static final String[] BLOCKED_EXTENSIONS = {"exe", "bat", "cmd", "sh", "php", "jsp", "asp", "aspx", "dll", "so"};
+
     @PostMapping("/file")
     public ResponseEntity<Map<String, Object>> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
@@ -27,18 +32,39 @@ public class FileUploadController {
                 return ResponseEntity.badRequest().body(Map.of("error", "File is empty"));
             }
 
-            // Generate UUID for file
-            String fileId = UUID.randomUUID().toString();
+            // Validate file size
+            if (file.getSize() > MAX_FILE_SIZE) {
+                return ResponseEntity.badRequest().body(Map.of("error", "File size exceeds maximum limit of 50MB"));
+            }
+
+            // Extract and validate file extension
             String originalFileName = file.getOriginalFilename();
             String fileExtension = getFileExtension(originalFileName);
+
+            // Validate extension
+            if (!isAllowedExtension(fileExtension)) {
+                return ResponseEntity.badRequest().body(Map.of("error", "File type not allowed. Allowed types: " + String.join(", ", ALLOWED_EXTENSIONS)));
+            }
+
+            if (isBlockedExtension(fileExtension)) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Dangerous file type blocked: " + fileExtension));
+            }
+
+            // Generate UUID for file
+            String fileId = UUID.randomUUID().toString();
             String newFileName = fileId + "." + fileExtension;
 
-            // Create upload directory if not exists
-            Path uploadPath = Paths.get(uploadDir);
+            // Create upload directory if not exists and ensure secure permissions
+            Path uploadPath = Paths.get(uploadDir).toAbsolutePath();
             Files.createDirectories(uploadPath);
 
+            // Prevent directory traversal attacks
+            Path filePath = uploadPath.resolve(newFileName).toAbsolutePath();
+            if (!filePath.getParent().equals(uploadPath)) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Invalid file path"));
+            }
+
             // Save file
-            Path filePath = uploadPath.resolve(newFileName);
             Files.write(filePath, file.getBytes());
 
             // Return file info with UUID
@@ -127,5 +153,29 @@ public class FileUploadController {
             return fileName;
         }
         return fileName.substring(0, fileName.lastIndexOf("."));
+    }
+
+    private boolean isAllowedExtension(String extension) {
+        if (extension == null || extension.isEmpty()) {
+            return false;
+        }
+        for (String allowed : ALLOWED_EXTENSIONS) {
+            if (allowed.equalsIgnoreCase(extension)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isBlockedExtension(String extension) {
+        if (extension == null || extension.isEmpty()) {
+            return false;
+        }
+        for (String blocked : BLOCKED_EXTENSIONS) {
+            if (blocked.equalsIgnoreCase(extension)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
