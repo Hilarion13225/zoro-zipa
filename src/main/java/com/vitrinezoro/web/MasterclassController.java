@@ -11,7 +11,7 @@ import java.util.List;
 public class MasterclassController {
     private final MasterclassRepository repo;
     @GetMapping public List<Masterclass> list() { return repo.findAll(); }
-    @PostMapping public Masterclass create(@RequestBody Masterclass body) { return repo.save(body); }
+    @PostMapping @ResponseStatus(HttpStatus.CREATED) public Masterclass create(@RequestBody Masterclass body) { return repo.save(body); }
     @PutMapping("/{id}") public Masterclass update(@PathVariable Long id, @RequestBody Masterclass body) {
         Masterclass e = repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (body.getTitle() != null) e.setTitle(body.getTitle());

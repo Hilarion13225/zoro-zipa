@@ -9,7 +9,7 @@ import type { Exhibition } from '../../types'
 const EXHIBITION_FIELDS = [
   { name: 'title', label: 'Titre', type: 'text' as const, required: true },
   { name: 'description', label: 'Description', type: 'textarea' as const, required: true },
-  { name: 'imageUrl', label: 'URL Image', type: 'url' as const, required: true },
+  { name: 'imageUrl', label: 'Image', type: 'file' as const, required: true, accept: 'image/*' },
   { name: 'location', label: 'Lieu', type: 'text' as const, required: true },
   { name: 'dates', label: 'Dates', type: 'text' as const, required: true },
   { name: 'active', label: 'Active', type: 'checkbox' as const },

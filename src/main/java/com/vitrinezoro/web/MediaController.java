@@ -11,7 +11,7 @@ import java.util.List;
 public class MediaController {
     private final MediaRepository repo;
     @GetMapping public List<Media> list() { return repo.findAll(); }
-    @PostMapping public Media create(@RequestBody Media body) { return repo.save(body); }
+    @PostMapping @ResponseStatus(HttpStatus.CREATED) public Media create(@RequestBody Media body) { return repo.save(body); }
     @PutMapping("/{id}") public Media update(@PathVariable Long id, @RequestBody Media body) {
         Media e = repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (body.getTitle() != null) e.setTitle(body.getTitle());

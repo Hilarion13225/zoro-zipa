@@ -11,7 +11,7 @@ import java.util.List;
 public class PerformanceController {
     private final PerformanceRepository repo;
     @GetMapping public List<Performance> list() { return repo.findAll(); }
-    @PostMapping public Performance create(@RequestBody Performance body) { return repo.save(body); }
+    @PostMapping @ResponseStatus(HttpStatus.CREATED) public Performance create(@RequestBody Performance body) { return repo.save(body); }
     @PutMapping("/{id}") public Performance update(@PathVariable Long id, @RequestBody Performance body) {
         Performance e = repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (body.getTitle() != null) e.setTitle(body.getTitle());

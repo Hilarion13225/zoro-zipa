@@ -11,7 +11,7 @@ import java.util.List;
 public class ProductController {
     private final ProductRepository repo;
     @GetMapping public List<Product> list() { return repo.findAll(); }
-    @PostMapping public Product create(@RequestBody Product body) { return repo.save(body); }
+    @PostMapping @ResponseStatus(HttpStatus.CREATED) public Product create(@RequestBody Product body) { return repo.save(body); }
     @PutMapping("/{id}") public Product update(@PathVariable Long id, @RequestBody Product body) {
         Product e = repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (body.getTitle() != null) e.setTitle(body.getTitle());

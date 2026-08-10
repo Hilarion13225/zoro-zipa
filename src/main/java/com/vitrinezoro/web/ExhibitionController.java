@@ -11,7 +11,7 @@ import java.util.List;
 public class ExhibitionController {
     private final ExhibitionRepository repo;
     @GetMapping public List<Exhibition> list() { return repo.findAll(); }
-    @PostMapping public Exhibition create(@RequestBody Exhibition body) { return repo.save(body); }
+    @PostMapping @ResponseStatus(HttpStatus.CREATED) public Exhibition create(@RequestBody Exhibition body) { return repo.save(body); }
     @PutMapping("/{id}") public Exhibition update(@PathVariable Long id, @RequestBody Exhibition body) {
         Exhibition e = repo.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (body.getTitle() != null) e.setTitle(body.getTitle());

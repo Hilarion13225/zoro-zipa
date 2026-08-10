@@ -9,7 +9,7 @@ import type { Product } from '../../types'
 const PRODUCT_FIELDS = [
   { name: 'title', label: 'Titre', type: 'text' as const, required: true, placeholder: 'Ex: Toile Premium' },
   { name: 'description', label: 'Description', type: 'textarea' as const, required: true, placeholder: 'Décrivez le produit' },
-  { name: 'imageUrl', label: 'URL Image', type: 'url' as const, required: true, placeholder: '/uploads/...' },
+  { name: 'imageUrl', label: 'Image', type: 'file' as const, required: true, accept: 'image/*' },
   { name: 'price', label: 'Prix (€)', type: 'number' as const, required: true },
   { name: 'quantity', label: 'Quantité', type: 'number' as const, required: true },
   { name: 'category', label: 'Catégorie', type: 'text' as const, required: true, placeholder: 'Ex: Toiles, Prints...' },

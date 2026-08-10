@@ -8,7 +8,7 @@ import type { Masterclass } from '../../types'
 
 const MASTERCLASS_FIELDS = [
   { name: 'title', label: 'Titre', type: 'text' as const, required: true },
-  { name: 'imageUrl', label: 'URL Image', type: 'url' as const, required: true },
+  { name: 'imageUrl', label: 'Image', type: 'file' as const, required: true, accept: 'image/*' },
   { name: 'content', label: 'Contenu', type: 'textarea' as const, required: true },
   { name: 'displayOrder', label: 'Ordre d\'affichage', type: 'number' as const },
 ]

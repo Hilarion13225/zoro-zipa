@@ -9,7 +9,7 @@ import type { SoloShow } from '../../types'
 const SOLO_SHOW_FIELDS = [
   { name: 'title', label: 'Titre', type: 'text' as const, required: true },
   { name: 'description', label: 'Description', type: 'textarea' as const, required: true },
-  { name: 'imageUrl', label: 'URL Image', type: 'url' as const, required: true },
+  { name: 'imageUrl', label: 'Image', type: 'file' as const, required: true, accept: 'image/*' },
   { name: 'year', label: 'Année', type: 'text' as const, required: true },
   { name: 'featured', label: 'En vedette', type: 'checkbox' as const },
 ]
