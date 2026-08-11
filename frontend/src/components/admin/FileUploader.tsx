@@ -28,9 +28,7 @@ export function FileUploader({ onFileSelected, acceptedTypes = 'image/*,video/*'
       const formData = new FormData()
       formData.append('file', file)
 
-      const response = await api.post<{ url: string }>('/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
+      const response = await api.post<{ url: string }>('/upload', formData)
 
       const uploadedFile: UploadedFile = {
         url: response.data.url,
