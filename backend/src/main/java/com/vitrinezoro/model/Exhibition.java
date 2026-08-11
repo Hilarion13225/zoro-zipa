@@ -1,6 +1,7 @@
 package com.vitrinezoro.model;
 import jakarta.persistence.*;
 import lombok.*;
+import java.time.LocalDate;
 
 @Entity @Table(name = "exhibitions")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
@@ -10,6 +11,7 @@ public class Exhibition {
     private String description;
     private String imageUrl;
     private String location;
-    private String dates;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private boolean active;
 }

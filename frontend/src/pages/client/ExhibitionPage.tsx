@@ -1,5 +1,6 @@
 ﻿import { Reveal } from '../../components/Reveal'
 import { useExhibitions } from '../../api/hooks'
+import { formatDateRange } from '../../utils/format'
 
 export function ExhibitionPage() {
   const { data: exhibitions = [], isLoading } = useExhibitions()
@@ -39,8 +40,8 @@ export function ExhibitionPage() {
                       <p className="text-xs uppercase tracking-[0.2em] text-gold mb-2">{expo.location}</p>
                       <h3 className="font-display text-lg text-ink mb-2">{expo.title}</h3>
                       <p className="text-sm text-ink/60 mb-4 line-clamp-2">{expo.description}</p>
-                      <div className="flex items-center justify-between">
-                        <p className="text-xs text-ink/50">{expo.dates}</p>
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <p className="text-xs text-ink/50">{formatDateRange(expo.startDate, expo.endDate)}</p>
                         <span
                           className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
                             expo.active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'

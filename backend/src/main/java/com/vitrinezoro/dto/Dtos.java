@@ -51,17 +51,17 @@ public final class Dtos {
 
     public record ExhibitionDto(
         Long id, String title, String description, String imageUrl,
-        String location, String dates, boolean active) {
+        String location, LocalDate startDate, LocalDate endDate, boolean active) {
 
         public static ExhibitionDto from(Exhibition e) {
             return new ExhibitionDto(e.getId(), e.getTitle(), e.getDescription(), e.getImageUrl(),
-                e.getLocation(), e.getDates(), e.isActive());
+                e.getLocation(), e.getStartDate(), e.getEndDate(), e.isActive());
         }
     }
 
     public record ExhibitionRequest(
         String title, String description, String imageUrl,
-        String location, String dates, boolean active) {}
+        String location, LocalDate startDate, LocalDate endDate, boolean active) {}
 
     public record ReservationDto(
         Long id, Long exhibitionId, String exhibitionTitle, LocalDate visitDate,

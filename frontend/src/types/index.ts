@@ -39,21 +39,6 @@ export interface Gallery {
   partner: boolean
 }
 
-export interface Exhibition {
-  id: number
-  title: string
-  description: string
-  posterUrl: string
-  startDate: string
-  endDate: string
-  location: string
-  galleryId: number
-  galleryName: string
-  artistIds: number[]
-  artistNames: string[]
-  current: boolean
-}
-
 export type ReservationStatus = 'CONFIRMED' | 'PENDING' | 'CANCELLED'
 
 export interface Reservation {
@@ -118,7 +103,8 @@ export interface Exhibition {
   description: string
   imageUrl: string
   location: string
-  dates: string
+  startDate: string
+  endDate: string
   active: boolean
 }
 

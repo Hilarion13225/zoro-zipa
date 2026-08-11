@@ -18,7 +18,8 @@ public class ExhibitionController {
         if (body.getDescription() != null) e.setDescription(body.getDescription());
         if (body.getImageUrl() != null) e.setImageUrl(body.getImageUrl());
         if (body.getLocation() != null) e.setLocation(body.getLocation());
-        if (body.getDates() != null) e.setDates(body.getDates());
+        if (body.getStartDate() != null) e.setStartDate(body.getStartDate());
+        if (body.getEndDate() != null) e.setEndDate(body.getEndDate());
         e.setActive(body.isActive());
         return repo.save(e);
     }
