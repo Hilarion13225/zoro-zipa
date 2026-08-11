@@ -11,11 +11,14 @@ interface ImageUploadProps {
 
 export function ImageUpload({ label = 'Image', value, onChange, preview = true }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false)
+  // Shown instantly from the local file while the upload is in progress.
+  const [localPreview, setLocalPreview] = useState<string | null>(null)
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.currentTarget.files?.[0]
     if (!file) return
 
+    setLocalPreview(URL.createObjectURL(file))
     setUploading(true)
     try {
       const formData = new FormData()
@@ -24,10 +27,13 @@ export function ImageUpload({ label = 'Image', value, onChange, preview = true }
       onChange(response.data.url)
     } catch (error) {
       alert('Erreur d\'upload: ' + (error instanceof Error ? error.message : 'Erreur inconnue'))
+      setLocalPreview(null)
     } finally {
       setUploading(false)
     }
   }
+
+  const previewSrc = localPreview || value
 
   return (
     <FormField label={label}>
@@ -42,9 +48,9 @@ export function ImageUpload({ label = 'Image', value, onChange, preview = true }
 
         {uploading && <p className="text-xs text-ink/50">Upload en cours...</p>}
 
-        {preview && value && (
+        {preview && previewSrc && (
           <div className="mt-2">
-            <img src={value} alt="Preview" className="h-24 w-32 rounded object-cover" />
+            <img src={previewSrc} alt="Preview" className="h-24 w-32 rounded object-cover" />
           </div>
         )}
       </div>

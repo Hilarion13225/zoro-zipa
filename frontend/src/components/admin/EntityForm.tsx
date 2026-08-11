@@ -105,6 +105,7 @@ export function EntityForm({
               ) : field.type === 'file' ? (
                 <FileUploader
                   acceptedTypes={field.accept || 'image/*'}
+                  value={formData[field.name] || ''}
                   onFileSelected={(file) => {
                     setFormData((prev) => ({
                       ...prev,
