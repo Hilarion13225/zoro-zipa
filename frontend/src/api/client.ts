@@ -12,14 +12,18 @@ const baseURL = rawApiUrl
 
 export const api = axios.create({
   baseURL,
-  headers: { 'Content-Type': 'application/json' },
 })
 
 // Attach the JWT (if present) to every outgoing request.
+// Also set Content-Type to JSON only for plain object bodies — leave FormData
+// (file uploads) alone so the browser can add the correct multipart boundary.
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('zoro_jwt')
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
+  }
+  if (!(config.data instanceof FormData) && !config.headers['Content-Type']) {
+    config.headers['Content-Type'] = 'application/json'
   }
   return config
 })
