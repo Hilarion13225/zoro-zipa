@@ -32,7 +32,7 @@ export function Footer() {
           </p>
           <ul className="space-y-3 text-sm text-ivory/70">
             <li className="flex items-center gap-2">
-              <Mail size={14} className="text-gold" /> bruno488@gmail.com
+              <Mail size={14} className="text-gold" /> buno488@gmail.com
             </li>
             <li className="flex items-center gap-2">
               <MapPin size={14} className="text-gold" /> Abidjan, Côte d'Ivoire
