@@ -128,7 +128,7 @@ export function ReservationPage() {
                       : 'border-ink/10 bg-white hover:border-gold/50'
                   }`}
                 >
-                  <img src={e.posterUrl} alt="" className="h-16 w-16 object-cover" />
+                  <img src={e.imageUrl} alt="" className="h-16 w-16 object-cover" />
                   <div>
                     <p className="font-display">{e.title}</p>
                     <p className="text-xs text-ink/50">

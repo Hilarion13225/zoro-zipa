@@ -16,7 +16,9 @@ const items = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/admin/profil', label: 'Mon Profil', icon: User },
 
-  // Content
+  // Team & Content
+  { to: '/admin/artists', label: 'Artistes', icon: Image },
+  { to: '/admin/galleries', label: 'Galeries', icon: Image },
   { to: '/admin/oeuvres', label: 'Galerie', icon: Image },
   { to: '/admin/exhibitions', label: 'Expositions', icon: Image },
   { to: '/admin/solo-shows', label: 'Solo Shows', icon: Image },
@@ -26,6 +28,8 @@ const items = [
   // Shop
   { to: '/admin/products', label: 'Produits', icon: ShoppingCart },
   { to: '/admin/orders', label: 'Commandes', icon: ShoppingCart },
+  { to: '/admin/reservations', label: 'Réservations', icon: ShoppingCart },
+  { to: '/admin/users', label: 'Utilisateurs', icon: User },
 
   // Analytics
   { to: '/admin/analytics', label: 'Analytics', icon: BarChart3 },

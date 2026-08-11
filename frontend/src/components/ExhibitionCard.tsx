@@ -23,7 +23,7 @@ export function ExhibitionCard({ exhibition }: ExhibitionCardProps) {
       <Link to={`/expositions/${exhibition.id}`} className="block">
         <div className="relative aspect-[4/5] overflow-hidden">
           <img
-            src={exhibition.posterUrl && exhibition.posterUrl.trim() ? exhibition.posterUrl : FALLBACK_IMAGE}
+            src={exhibition.imageUrl && exhibition.imageUrl.trim() ? exhibition.imageUrl : FALLBACK_IMAGE}
             alt={exhibition.title}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"

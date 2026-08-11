@@ -23,7 +23,7 @@ export function ExhibitionDetailPage() {
     <div>
       <section className="relative flex min-h-[70vh] items-end overflow-hidden bg-ink">
         <img
-          src={exhibition.posterUrl}
+          src={exhibition.imageUrl}
           alt={exhibition.title}
           className="absolute inset-0 h-full w-full object-cover opacity-50"
         />

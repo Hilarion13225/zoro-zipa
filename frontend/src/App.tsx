@@ -13,15 +13,19 @@ import { MediaPage } from './pages/client/MediaPage'
 import { ShopPage } from './pages/client/ShopPage'
 import { MasterclassPage } from './pages/client/MasterclassPage'
 import { AdminDashboard } from './pages/admin/AdminDashboard'
+import { ArtistManagement } from './pages/admin/ArtistManagement'
+import { GalleryManagement } from './pages/admin/GalleryManagement'
 import { ArtworkManagement } from './pages/admin/ArtworkManagement'
-import { OrderManagement } from './pages/admin/OrderManagement'
-import { AnalyticsPage } from './pages/admin/AnalyticsPage'
-import { ProfileManagement } from './pages/admin/ProfileManagement'
 import { ExhibitionManagement } from './pages/admin/ExhibitionManagement'
 import { SoloShowManagement } from './pages/admin/SoloShowManagement'
 import { MediaManagement } from './pages/admin/MediaManagement'
 import { ProductManagement } from './pages/admin/ProductManagement'
 import { MasterclassManagement } from './pages/admin/MasterclassManagement'
+import { ReservationManagement } from './pages/admin/ReservationManagement'
+import { UserManagement } from './pages/admin/UserManagement'
+import { OrderManagement } from './pages/admin/OrderManagement'
+import { AnalyticsPage } from './pages/admin/AnalyticsPage'
+import { ProfileManagement } from './pages/admin/ProfileManagement'
 
 export default function App() {
   return (
@@ -51,7 +55,9 @@ export default function App() {
           <Route index element={<AdminDashboard />} />
           <Route path="profil" element={<ProfileManagement />} />
 
-          {/* Content Management */}
+          {/* Team & Content Management */}
+          <Route path="artists" element={<ArtistManagement />} />
+          <Route path="galleries" element={<GalleryManagement />} />
           <Route path="oeuvres" element={<ArtworkManagement />} />
           <Route path="exhibitions" element={<ExhibitionManagement />} />
           <Route path="solo-shows" element={<SoloShowManagement />} />
@@ -61,6 +67,8 @@ export default function App() {
           {/* Shop & Orders */}
           <Route path="products" element={<ProductManagement />} />
           <Route path="orders" element={<OrderManagement />} />
+          <Route path="reservations" element={<ReservationManagement />} />
+          <Route path="users" element={<UserManagement />} />
 
           {/* Analytics */}
           <Route path="analytics" element={<AnalyticsPage />} />
