@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Builder
 public class User {
 
-    public enum Role { ADMIN, VISITOR, GALLERY }
+    public enum Role { ADMIN, CLIENT }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,10 @@ public class User {
 
     @Column(unique = true)
     private String email;
+
+    /** BCrypt hash — never the plain password. */
+    @Column(nullable = false)
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;

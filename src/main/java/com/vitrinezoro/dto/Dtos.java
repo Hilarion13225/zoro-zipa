@@ -99,4 +99,10 @@ public final class Dtos {
         long artists, long artworks, long exhibitions, long visitors, long reservations,
         List<MonthlyPoint> visitorsByMonth, List<MonthlyPoint> reservationsByMonth,
         List<PopularArtwork> popularArtworks) {}
+
+    public record LoginRequest(String email, String password) {}
+
+    public record RegisterRequest(String name, String email, String password) {}
+
+    public record AuthResponse(String token, String name, String email, User.Role role) {}
 }

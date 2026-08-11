@@ -80,7 +80,7 @@ export interface ReservationRequest {
   phone: string
 }
 
-export type UserRole = 'ADMIN' | 'VISITOR' | 'GALLERY'
+export type UserRole = 'ADMIN' | 'CLIENT'
 
 export interface User {
   id: number

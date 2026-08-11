@@ -1,20 +1,14 @@
-/** Shared access-gate keys and helpers (site + admin portals). */
+/** Logout helpers — clear the JWT session and send the user back to the login screen. */
+import { logout as clearSession } from '../api/auth'
 
-export const ACCESS_KEY = 'zoro_site_access'
-export const ADMIN_KEY = 'zoro_admin_access'
-
-export const SITE_PASSWORD = 'zoro-zipa-urbain2026'
-export const ADMIN_PASSWORD = 'qwertyuiop123456789'
-
-/** Clears the admin session and reloads so the AccessGate password screen shows again. */
+/** Clears the session and reloads so AccessGate shows the admin login screen again. */
 export function logoutAdmin() {
-  localStorage.removeItem(ADMIN_KEY)
+  clearSession()
   window.location.href = '/admin'
 }
 
-/** Clears the public site session and reloads so the AccessGate password screen shows again. */
+/** Clears the session and reloads so AccessGate shows the site login screen again. */
 export function logoutSite() {
-  localStorage.removeItem(ACCESS_KEY)
-  localStorage.removeItem(ADMIN_KEY)
+  clearSession()
   window.location.href = '/'
 }

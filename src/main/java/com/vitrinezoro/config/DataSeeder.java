@@ -3,7 +3,9 @@ package com.vitrinezoro.config;
 import com.vitrinezoro.model.*;
 import com.vitrinezoro.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -19,6 +21,13 @@ public class DataSeeder implements CommandLineRunner {
     private final GalleryRepository galleries;
     private final ReservationRepository reservations;
     private final UserRepository users;
+    private final PasswordEncoder passwordEncoder;
+
+    @Value("${app.admin.email:admin@zorozipa.com}")
+    private String adminEmail;
+
+    @Value("${app.admin.password:ChangeMe123!}")
+    private String adminPassword;
 
     private static String unsplash(String id) {
         return "https://images.unsplash.com/" + id + "?q=80&w=1600&auto=format&fit=crop";
@@ -30,6 +39,8 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        seedAdmin();
+
         if (artists.count() > 0) return;
 
         Artist zoro = artist("Zoro Zipa", local("image00002.jpeg"), "Ivoirien",
@@ -59,10 +70,20 @@ public class DataSeeder implements CommandLineRunner {
                 local("image00004.jpeg"))));
 
         // Exhibitions, Solo Shows, Media, Products, and Masterclasses can be managed via admin panel
+    }
 
-        users.saveAll(List.of(
-            user("Zoro Zipa", "contact@zorozipa.com", User.Role.ADMIN),
-            user("Kouassi Konan", "kouassi@zorozipa.com", User.Role.GALLERY)));
+    /** Creates the initial admin account (hashed password) if none exists yet. */
+    private void seedAdmin() {
+        if (users.existsByEmail(adminEmail)) return;
+
+        users.save(User.builder()
+            .name("Administrateur Zoro Zipa")
+            .email(adminEmail)
+            .password(passwordEncoder.encode(adminPassword))
+            .role(User.Role.ADMIN)
+            .active(true)
+            .createdAt(LocalDate.now())
+            .build());
     }
 
     private Artist artist(String name, String photo, String nationality, String style, String bio, String journey) {
@@ -109,16 +130,6 @@ public class DataSeeder implements CommandLineRunner {
             .build();
     }
 
-
-    private User user(String name, String email, User.Role role) {
-        return User.builder()
-            .name(name)
-            .email(email)
-            .role(role)
-            .active(true)
-            .createdAt(LocalDate.now().minusDays(30))
-            .build();
-    }
 
     private Reservation reservation(Exhibition exhibition, LocalDate date, String slot,
                                     int visitors, String fullName, String email, String phone) {

@@ -7,8 +7,7 @@ import { formatDate } from '../../utils/format'
 
 const roleLabels: Record<UserRole, string> = {
   ADMIN: 'Administrateur',
-  GALLERY: 'Galerie',
-  VISITOR: 'Visiteur',
+  CLIENT: 'Client',
 }
 
 /** Platform user management: roles, activation, deletion. */

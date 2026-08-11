@@ -5,6 +5,7 @@ import com.vitrinezoro.model.User;
 import com.vitrinezoro.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class UserController {
 
     private final UserRepository users;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping
     public List<UserDto> list() {
@@ -25,11 +27,15 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto create(@RequestBody UserDto body) {
+    public UserDto create(@RequestBody CreateUserRequest body) {
+        if (users.existsByEmail(body.email())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cet email est déjà utilisé");
+        }
         User user = User.builder()
             .name(body.name())
             .email(body.email())
-            .role(body.role() != null ? body.role() : User.Role.VISITOR)
+            .password(passwordEncoder.encode(body.password()))
+            .role(body.role() != null ? body.role() : User.Role.CLIENT)
             .active(true)
             .createdAt(LocalDate.now())
             .build();
@@ -37,12 +43,15 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public UserDto update(@PathVariable Long id, @RequestBody UserDto body) {
+    public UserDto update(@PathVariable Long id, @RequestBody CreateUserRequest body) {
         User user = users.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         if (body.name() != null) user.setName(body.name());
         if (body.email() != null) user.setEmail(body.email());
         if (body.role() != null) user.setRole(body.role());
+        if (body.password() != null && !body.password().isBlank()) {
+            user.setPassword(passwordEncoder.encode(body.password()));
+        }
         user.setActive(body.active());
         return UserDto.from(users.save(user));
     }
@@ -52,4 +61,8 @@ public class UserController {
     public void delete(@PathVariable Long id) {
         users.deleteById(id);
     }
+
+    /** Separate from UserDto so we never accidentally serialize a password hash back out. */
+    public record CreateUserRequest(
+        String name, String email, String password, User.Role role, boolean active) {}
 }
