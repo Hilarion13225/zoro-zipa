@@ -1,6 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
 import { Navbar } from '../components/Navbar'
 import { Footer } from '../components/Footer'
 import { ZoroAssistant } from '../components/ZoroAssistant'
@@ -17,17 +16,15 @@ export function ClientLayout() {
     <div className="flex min-h-screen flex-col">
       <Navbar />
       <main className="flex-1">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={pathname}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
-          >
-            <Outlet />
-          </motion.div>
-        </AnimatePresence>
+        {/*
+          Plain CSS fade-in (see index.css `.page-fade`) instead of
+          framer-motion's AnimatePresence: a JS-driven exit animation that
+          never resolves can leave content stuck at opacity:0 permanently.
+          A CSS keyframe animation always runs to completion.
+        */}
+        <div key={pathname} className="page-fade">
+          <Outlet />
+        </div>
       </main>
       <Footer />
       <ZoroAssistant />
