@@ -29,7 +29,12 @@ public class UploadController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Seules les images sont acceptées");
         }
 
-        String url = cloudinaryService.upload(file);
+        String url;
+        try {
+            url = cloudinaryService.upload(file);
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
         return new UploadResponse(url);
     }
 

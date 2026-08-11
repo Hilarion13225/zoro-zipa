@@ -49,6 +49,12 @@ public class CloudinaryService {
             return result.get("secure_url").toString();
         } catch (IOException e) {
             throw new RuntimeException("Échec de l'upload vers Cloudinary : " + e.getMessage(), e);
+        } catch (Exception e) {
+            // Catches Cloudinary auth/config errors (e.g. missing/invalid API credentials)
+            // so they surface as a readable message instead of a bare 500.
+            throw new RuntimeException(
+                "Cloudinary a refusé l'upload (vérifie CLOUDINARY_CLOUD_NAME / API_KEY / API_SECRET) : "
+                    + e.getMessage(), e);
         }
     }
 
