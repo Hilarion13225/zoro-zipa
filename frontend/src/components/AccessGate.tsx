@@ -32,8 +32,8 @@ export function AccessGate({ children, adminMode = false }: AccessGateProps) {
       const user = await login(email, password)
 
       if (adminMode && user.role !== 'ADMIN') {
-        setError("Ce compte n'a pas les droits administrateur")
-        setSubmitting(false)
+        // Not an admin account — send them straight to the public showcase site.
+        window.location.href = '/'
         return
       }
 

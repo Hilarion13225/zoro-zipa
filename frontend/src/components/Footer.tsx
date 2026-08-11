@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { AtSign, LogOut, Mail, MapPin, Settings } from 'lucide-react'
+import { AtSign, LogOut, Mail, MapPin } from 'lucide-react'
 import { logoutSite } from '../utils/auth'
 
 export function Footer() {
@@ -24,8 +24,6 @@ export function Footer() {
             <li><Link to="/galerie" className="hover:text-gold">Galerie</Link></li>
             <li><Link to="/a-propos" className="hover:text-gold">À propos</Link></li>
             <li><Link to="/shop" className="hover:text-gold">Boutique</Link></li>
-            {/* Lien caché pour l'admin */}
-            <li><Link to="/admin" className="inline-flex items-center gap-1 text-ivory/20 hover:text-gold/30 transition-colors" title="Admin"><Settings size={12} /></Link></li>
           </ul>
         </div>
         <div>
