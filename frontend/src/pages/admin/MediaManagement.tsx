@@ -8,7 +8,7 @@ import type { Media } from '../../types'
 
 const MEDIA_FIELDS = [
   { name: 'title', label: 'Titre', type: 'text' as const, required: true },
-  { name: 'url', label: 'URL', type: 'url' as const, required: true },
+  { name: 'url', label: 'Fichier', type: 'file' as const, required: true, accept: 'image/*,video/*' },
   { name: 'type', label: 'Type (photo/video)', type: 'text' as const, required: true },
   { name: 'category', label: 'Catégorie', type: 'text' as const, required: true },
   { name: 'description', label: 'Description', type: 'textarea' as const },

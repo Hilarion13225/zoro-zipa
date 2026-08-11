@@ -3,6 +3,7 @@ import { BadgeCheck, Pencil, Plus, Trash2 } from 'lucide-react'
 import { AdminHeader } from '../../components/admin/AdminHeader'
 import { DataTable } from '../../components/admin/DataTable'
 import { FormField, inputClass } from '../../components/admin/FormField'
+import { ImageUpload } from '../../components/admin/ImageUpload'
 import { Modal } from '../../components/Modal'
 import {
   useArtists,
@@ -152,9 +153,7 @@ export function ArtistManagement() {
             </select>
           </FormField>
           <div className="md:col-span-2">
-            <FormField label="URL du portrait">
-              <input className={inputClass} value={form.portraitUrl} onChange={(e) => set('portraitUrl', e.target.value)} />
-            </FormField>
+            <ImageUpload value={form.portraitUrl} onChange={(url) => set('portraitUrl', url)} />
           </div>
           <div className="md:col-span-2">
             <FormField label="Biographie">
