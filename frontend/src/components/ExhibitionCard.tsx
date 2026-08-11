@@ -28,7 +28,7 @@ export function ExhibitionCard({ exhibition }: ExhibitionCardProps) {
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          {exhibition.current && (
+          {exhibition.active && (
             <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink">
               En cours
             </span>
@@ -44,7 +44,7 @@ export function ExhibitionCard({ exhibition }: ExhibitionCardProps) {
           </p>
           <p className="mt-1.5 flex items-center gap-2 text-xs text-ivory/60">
             <MapPin size={13} className="text-gold" />
-            {exhibition.galleryName} · {exhibition.location}
+            {exhibition.location}
           </p>
         </div>
       </Link>

@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
-import { CalendarDays, MapPin, Ticket, Building2 } from 'lucide-react'
+import { CalendarDays, MapPin, Ticket } from 'lucide-react'
 import { Reveal } from '../../components/Reveal'
 import { ArtistCard } from '../../components/ArtistCard'
 import { useArtists, useExhibition } from '../../api/hooks'
@@ -17,7 +17,9 @@ export function ExhibitionDetailPage() {
   if (!exhibition)
     return <p className="px-6 pt-40 text-center text-ink/40">Exposition introuvable.</p>
 
-  const participants = artists?.filter((a) => exhibition.artistIds.includes(a.id)) ?? []
+  // The backend doesn't link exhibitions to specific artists — this platform
+  // showcases a single artist, so every exhibition features them.
+  const participants = artists ?? []
 
   return (
     <div>
@@ -29,7 +31,7 @@ export function ExhibitionDetailPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
         <Reveal className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-16 pt-40">
-          {exhibition.current && (
+          {exhibition.active && (
             <span className="mb-4 inline-block rounded-full bg-gold px-4 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink">
               En cours
             </span>
@@ -41,9 +43,6 @@ export function ExhibitionDetailPage() {
             <span className="flex items-center gap-2">
               <CalendarDays size={15} className="text-gold" />
               {formatDateRange(exhibition.startDate, exhibition.endDate)}
-            </span>
-            <span className="flex items-center gap-2">
-              <Building2 size={15} className="text-gold" /> {exhibition.galleryName}
             </span>
             <span className="flex items-center gap-2">
               <MapPin size={15} className="text-gold" /> {exhibition.location}

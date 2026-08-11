@@ -41,10 +41,10 @@ export function ZoroAssistant() {
           `« ${a.title} » (${a.year || 'sans date'}) de ${a.artistName} — ${a.technique}. ${a.description}`
 
         if (q.includes('exposition') || q.includes('visite')) {
-          const current = exhibitions?.filter((e) => e.current) ?? []
+          const current = exhibitions?.filter((e) => e.active) ?? []
           if (current.length)
             return `Actuellement à l'affiche : ${current
-              .map((e) => `« ${e.title} » (${e.galleryName})`)
+              .map((e) => `« ${e.title} » (${e.location})`)
               .join(', ')}. Vous pouvez réserver depuis la page Expositions.`
         }
 

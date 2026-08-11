@@ -132,7 +132,7 @@ export function ReservationPage() {
                   <div>
                     <p className="font-display">{e.title}</p>
                     <p className="text-xs text-ink/50">
-                      {e.galleryName} · {e.location}
+                      {e.location}
                     </p>
                   </div>
                 </button>
