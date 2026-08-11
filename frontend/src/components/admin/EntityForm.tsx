@@ -6,7 +6,7 @@ import { FileUploader } from './FileUploader'
 interface Field {
   name: string
   label: string
-  type: 'text' | 'textarea' | 'number' | 'url' | 'checkbox' | 'file'
+  type: 'text' | 'textarea' | 'number' | 'url' | 'checkbox' | 'file' | 'date'
   required?: boolean
   placeholder?: string
   accept?: string
@@ -112,6 +112,15 @@ export function EntityForm({
                       [field.name]: file.url,
                     }))
                   }}
+                />
+              ) : field.type === 'date' ? (
+                <input
+                  type="date"
+                  name={field.name}
+                  value={formData[field.name] || ''}
+                  onChange={handleChange}
+                  required={field.required}
+                  className="w-full rounded border border-ink/20 px-3 py-2 text-sm focus:border-gold focus:outline-none"
                 />
               ) : (
                 <input

@@ -11,7 +11,7 @@ const EXHIBITION_FIELDS = [
   { name: 'description', label: 'Description', type: 'textarea' as const, required: true },
   { name: 'imageUrl', label: 'Image', type: 'file' as const, required: true, accept: 'image/*' },
   { name: 'location', label: 'Lieu', type: 'text' as const, required: true },
-  { name: 'dates', label: 'Dates', type: 'text' as const, required: true },
+  { name: 'dates', label: 'Date', type: 'date' as const, required: true },
   { name: 'active', label: 'Active', type: 'checkbox' as const },
 ]
 
