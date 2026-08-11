@@ -26,7 +26,7 @@
 ## 📁 FILE UPLOAD & STORAGE
 
 ### FileUploader Component
-- [x] Located at: `zoro-zipa-web/src/components/admin/FileUploader.tsx` ✅
+- [x] Located at: `frontend/src/components/admin/FileUploader.tsx` ✅
 - [x] POST endpoint: `/api/upload/file` ✅
 - [x] GET endpoint: `/api/upload/files` ✅
 - [x] DELETE endpoint: `/api/upload/file/{fileId}` ✅

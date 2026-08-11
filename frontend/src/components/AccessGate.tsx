@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { login, register, isAuthenticated } from '../api/auth'
+import { login, isAuthenticated } from '../api/auth'
 
 interface AccessGateProps {
   children: React.ReactNode
@@ -10,8 +10,6 @@ interface AccessGateProps {
 export function AccessGate({ children, adminMode = false }: AccessGateProps) {
   const navigate = useNavigate()
   const [hasAccess, setHasAccess] = useState(false)
-  const [mode, setMode] = useState<'login' | 'register'>('login')
-  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -31,9 +29,7 @@ export function AccessGate({ children, adminMode = false }: AccessGateProps) {
     setSubmitting(true)
 
     try {
-      const user = mode === 'login'
-        ? await login(email, password)
-        : await register(name, email, password)
+      const user = await login(email, password)
 
       if (adminMode && user.role !== 'ADMIN') {
         setError("Ce compte n'a pas les droits administrateur")
@@ -67,19 +63,6 @@ export function AccessGate({ children, adminMode = false }: AccessGateProps) {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {!adminMode && mode === 'register' && (
-              <div>
-                <label className="block text-sm text-ivory/80 mb-2">Nom</label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Votre nom"
-                  className="w-full px-4 py-3 rounded-lg bg-ivory/10 border border-gold/30 text-ivory placeholder-ivory/40 focus:outline-none focus:border-gold transition-colors"
-                  required
-                />
-              </div>
-            )}
 
             <div>
               <label className="block text-sm text-ivory/80 mb-2">Email</label>
@@ -117,20 +100,10 @@ export function AccessGate({ children, adminMode = false }: AccessGateProps) {
               disabled={submitting}
               className="w-full py-3 rounded-lg bg-gold text-ink font-medium hover:bg-gold-soft transition-colors disabled:opacity-60"
             >
-              {submitting ? 'Connexion...' : mode === 'login' ? 'Se connecter' : 'Créer mon compte'}
+              {submitting ? 'Connexion...' : 'Se connecter'}
             </button>
           </form>
 
-          {!adminMode && (
-            <div className="mt-6 text-center">
-              <button
-                onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError('') }}
-                className="text-ivory/50 text-xs hover:text-gold transition-colors"
-              >
-                {mode === 'login' ? "Pas encore de compte ? S'inscrire" : 'Déjà un compte ? Se connecter'}
-              </button>
-            </div>
-          )}
 
           {!adminMode && (
             <div className="mt-8 text-center">

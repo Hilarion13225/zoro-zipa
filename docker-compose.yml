@@ -1,17 +1,22 @@
-version: '3.9'
-
 services:
   backend:
-    build: .
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: zoro-zipa-backend
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:h2:file:/app/data/zoro-zipa;MODE=LEGACY
+      SERVER_PORT: 8080
       APP_FILE_STORAGE_UPLOAD_DIR: /app/uploads
       MAIL_USERNAME: ${MAIL_USERNAME}
       MAIL_PASSWORD: ${MAIL_PASSWORD}
-      SERVER_PORT: 8080
+      DATABASE_URL: ${DATABASE_URL}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
     volumes:
       - zoro-data:/app/data
       - zoro-uploads:/app/uploads
@@ -27,13 +32,13 @@ services:
 
   frontend:
     build:
-      context: ./zoro-zipa-web
+      context: ./frontend
       dockerfile: Dockerfile
+      args:
+        VITE_API_URL: /api
     container_name: zoro-zipa-frontend
     ports:
       - "3000:80"
-    environment:
-      VITE_API_URL: http://backend:8080/api
     depends_on:
       - backend
     networks:

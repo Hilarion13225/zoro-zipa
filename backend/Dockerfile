@@ -16,7 +16,6 @@ RUN mkdir -p /app/data /app/uploads
 COPY --from=builder /app/target/*.jar app.jar
 
 # Environment variables
-ENV SPRING_DATASOURCE_URL=jdbc:h2:file:/app/data/zoro-zipa;MODE=LEGACY
 ENV APP_FILE_STORAGE_UPLOAD_DIR=/app/uploads
 ENV SERVER_PORT=8080
 

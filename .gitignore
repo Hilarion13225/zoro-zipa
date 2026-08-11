@@ -1,5 +1,5 @@
 "uploads/" 
 "data/" 
-"zoro-zipa-web/.env.local" 
-"zoro-zipa-web/dist/" 
+"frontend/.env.local" 
+"frontend/dist/" 
 ".env"

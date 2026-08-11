@@ -124,7 +124,7 @@ Volumes:
 - `Dockerfile` - Backend multi-stage build
 - `docker-compose.yml` - Service orchestration
 - `nginx.conf` - Reverse proxy configuration
-- `zoro-zipa-web/Dockerfile` - Frontend build
+- `frontend/Dockerfile` - Frontend build
 - `docker-start.sh` / `docker-start.bat` - Startup scripts
 - `.env.example` - Configuration template
 - `.dockerignore` - Build optimization

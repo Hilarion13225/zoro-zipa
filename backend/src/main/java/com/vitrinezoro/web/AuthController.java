@@ -2,7 +2,6 @@ package com.vitrinezoro.web;
 
 import com.vitrinezoro.dto.Dtos.AuthResponse;
 import com.vitrinezoro.dto.Dtos.LoginRequest;
-import com.vitrinezoro.dto.Dtos.RegisterRequest;
 import com.vitrinezoro.model.User;
 import com.vitrinezoro.repository.UserRepository;
 import com.vitrinezoro.security.JwtService;
@@ -31,28 +30,6 @@ public class AuthController {
         if (!user.isActive() || !passwordEncoder.matches(body.password(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Identifiants invalides");
         }
-
-        String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
-        return new AuthResponse(token, user.getName(), user.getEmail(), user.getRole());
-    }
-
-    /** Public self-registration — always creates a CLIENT account, never ADMIN. */
-    @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public AuthResponse register(@RequestBody RegisterRequest body) {
-        if (users.existsByEmail(body.email())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cet email est déjà utilisé");
-        }
-
-        User user = User.builder()
-            .name(body.name())
-            .email(body.email())
-            .password(passwordEncoder.encode(body.password()))
-            .role(User.Role.CLIENT)
-            .active(true)
-            .createdAt(LocalDate.now())
-            .build();
-        users.save(user);
 
         String token = jwtService.generateToken(user.getEmail(), user.getRole().name());
         return new AuthResponse(token, user.getName(), user.getEmail(), user.getRole());

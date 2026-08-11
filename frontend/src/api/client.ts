@@ -2,10 +2,16 @@ import axios from 'axios'
 
 /**
  * Axios instance for the Zoro-Zipa Spring Boot API.
- * In dev, Vite proxies /api to http://localhost:8080.
+ * In development, Vite proxies /api to http://localhost:8080.
+ * In production, the frontend should use a same-origin /api path.
  */
+const rawApiUrl = import.meta.env.VITE_API_URL?.trim()
+const baseURL = rawApiUrl
+  ? rawApiUrl.replace(/^https?:\/\/backend:8080/i, '')
+  : '/api'
+
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? '/api',
+  baseURL,
   headers: { 'Content-Type': 'application/json' },
 })
 

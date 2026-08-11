@@ -29,12 +29,6 @@ export async function login(email: string, password: string): Promise<AuthUser> 
   return { name: data.name, email: data.email, role: data.role }
 }
 
-export async function register(name: string, email: string, password: string): Promise<AuthUser> {
-  const { data } = await api.post<AuthResponse>('/auth/register', { name, email, password })
-  storeSession(data)
-  return { name: data.name, email: data.email, role: data.role }
-}
-
 export function logout() {
   localStorage.removeItem(TOKEN_KEY)
   localStorage.removeItem(USER_KEY)

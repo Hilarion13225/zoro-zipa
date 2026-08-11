@@ -46,7 +46,7 @@ MAIL_PASSWORD=ton_app_password
 # 2. Va sur vercel.com
 # 3. Clique "New Project" 
 # 4. Import depuis GitHub
-# 5. Sélectionne: root = zoro-zipa-web
+# 5. Sélectionne: root = frontend
 ```
 
 ---

@@ -29,6 +29,12 @@ public class DataSeeder implements CommandLineRunner {
     @Value("${app.admin.password:ChangeMe123!}")
     private String adminPassword;
 
+    @Value("${app.user.email:user@zorozipa.com}")
+    private String userEmail;
+
+    @Value("${app.user.password:User123!}")
+    private String userPassword;
+
     private static String unsplash(String id) {
         return "https://images.unsplash.com/" + id + "?q=80&w=1600&auto=format&fit=crop";
     }
@@ -40,6 +46,7 @@ public class DataSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) {
         seedAdmin();
+        seedClient();
 
         if (artists.count() > 0) return;
 
@@ -81,6 +88,19 @@ public class DataSeeder implements CommandLineRunner {
             .email(adminEmail)
             .password(passwordEncoder.encode(adminPassword))
             .role(User.Role.ADMIN)
+            .active(true)
+            .createdAt(LocalDate.now())
+            .build());
+    }
+
+    private void seedClient() {
+        if (users.existsByEmail(userEmail)) return;
+
+        users.save(User.builder()
+            .name("Utilisateur Zoro Zipa")
+            .email(userEmail)
+            .password(passwordEncoder.encode(userPassword))
+            .role(User.Role.CLIENT)
             .active(true)
             .createdAt(LocalDate.now())
             .build());

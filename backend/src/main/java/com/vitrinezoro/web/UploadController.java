@@ -1,6 +1,6 @@
 package com.vitrinezoro.web;
 
-import com.vitrinezoro.service.CloudflareR2Service;
+import com.vitrinezoro.service.CloudinaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 public class UploadController {
 
-    private final CloudflareR2Service r2Service;
+    private final CloudinaryService cloudinaryService;
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024;
 
     @PostMapping
@@ -29,7 +29,7 @@ public class UploadController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Seules les images sont acceptées");
         }
 
-        String url = r2Service.upload(file);
+        String url = cloudinaryService.upload(file);
         return new UploadResponse(url);
     }
 
