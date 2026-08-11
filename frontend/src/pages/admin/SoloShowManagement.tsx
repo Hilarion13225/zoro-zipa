@@ -78,57 +78,97 @@ export function SoloShowManagement() {
           </button>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-ink/10">
-          <table className="w-full">
-            <thead className="bg-ivory-dim">
-              <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Titre</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Année</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Vedette</th>
-                <th className="px-6 py-4 text-right text-sm font-semibold text-ink">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {soloShows.map((item) => (
-                <tr key={item.id} className="border-t border-ink/10 hover:bg-ivory-dim/50">
-                  <td className="px-6 py-4">
-                    <div className="flex gap-4 items-center">
-                      <img src={item.imageUrl} alt={item.title} className="h-12 w-12 rounded object-cover" />
-                      <p className="font-medium text-ink">{item.title}</p>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-ink">{item.year}</td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                        item.featured ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                      }`}
-                    >
-                      {item.featured ? 'Oui' : 'Non'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="flex justify-end gap-2">
-                      <button
-                        onClick={() => handleEdit(item)}
-                        className="p-2 text-ink/60 hover:text-gold transition-colors"
-                      >
-                        <Edit2 size={16} />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(item.id)}
-                        disabled={deleting === item.id}
-                        className="p-2 text-ink/60 hover:text-red-600 transition-colors disabled:opacity-50"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </td>
+        <>
+          <div className="hidden overflow-x-auto rounded-lg border border-ink/10 md:block">
+            <table className="w-full">
+              <thead className="bg-ivory-dim">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Titre</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Année</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Vedette</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-ink">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {soloShows.map((item) => (
+                  <tr key={item.id} className="border-t border-ink/10 hover:bg-ivory-dim/50">
+                    <td className="px-6 py-4">
+                      <div className="flex gap-4 items-center">
+                        <img src={item.imageUrl} alt={item.title} className="h-12 w-12 rounded object-cover" />
+                        <p className="font-medium text-ink">{item.title}</p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-ink">{item.year}</td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                          item.featured ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                        }`}
+                      >
+                        {item.featured ? 'Oui' : 'Non'}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <div className="flex justify-end gap-2">
+                        <button
+                          onClick={() => handleEdit(item)}
+                          className="p-2 text-ink/60 hover:text-gold transition-colors"
+                        >
+                          <Edit2 size={16} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(item.id)}
+                          disabled={deleting === item.id}
+                          className="p-2 text-ink/60 hover:text-red-600 transition-colors disabled:opacity-50"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="grid gap-4 md:hidden">
+            {soloShows.map((item) => (
+              <div key={item.id} className="rounded-lg border border-ink/10 p-4">
+                <div className="flex gap-3">
+                  <img src={item.imageUrl} alt={item.title} className="h-16 w-16 shrink-0 rounded object-cover" />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="font-medium text-ink">{item.title}</p>
+                      <span
+                        className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                          item.featured ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                        }`}
+                      >
+                        {item.featured ? 'Vedette' : ''}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-sm text-ink/60">{item.year}</p>
+                  </div>
+                </div>
+                <div className="mt-3 flex justify-end gap-2 border-t border-ink/10 pt-3">
+                  <button
+                    onClick={() => handleEdit(item)}
+                    className="flex items-center gap-1.5 rounded-full border border-ink/15 px-3 py-1.5 text-xs text-ink/70 hover:border-gold hover:text-gold"
+                  >
+                    <Edit2 size={14} /> Modifier
+                  </button>
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    disabled={deleting === item.id}
+                    className="flex items-center gap-1.5 rounded-full border border-ink/15 px-3 py-1.5 text-xs text-ink/70 hover:border-red-500 hover:text-red-600 disabled:opacity-50"
+                  >
+                    <Trash2 size={14} /> Supprimer
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {showForm && (

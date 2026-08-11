@@ -10,7 +10,7 @@ export function MediaPage() {
         <div className="mx-auto max-w-6xl px-6">
           <Reveal>
             <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4">Média</p>
-            <h1 className="font-display text-6xl mb-8">Galerie Multimédia</h1>
+            <h1 className="font-display text-4xl mb-8 md:text-5xl lg:text-6xl">Galerie Multimédia</h1>
             <p className="text-ivory/70 text-lg">Photos et vidéos de Zoro Zipa</p>
           </Reveal>
         </div>

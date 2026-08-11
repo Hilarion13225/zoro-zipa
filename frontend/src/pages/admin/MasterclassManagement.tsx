@@ -81,8 +81,8 @@ export function MasterclassManagement() {
           {masterclasses
             .sort((a, b) => a.displayOrder - b.displayOrder)
             .map((item) => (
-              <div key={item.id} className="rounded-lg border border-ink/10 bg-white p-6 flex gap-6">
-                <img src={item.imageUrl} alt={item.title} className="h-32 w-32 rounded object-cover" />
+              <div key={item.id} className="flex flex-col gap-4 rounded-lg border border-ink/10 bg-white p-4 sm:flex-row sm:gap-6 sm:p-6">
+                <img src={item.imageUrl} alt={item.title} className="h-32 w-full rounded object-cover sm:w-32" />
                 <div className="flex-1">
                   <p className="font-display text-lg text-ink mb-2">{item.title}</p>
                   <p className="text-sm text-ink/60 mb-4 line-clamp-2">{item.content}</p>

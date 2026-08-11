@@ -80,72 +80,117 @@ export function ProductManagement() {
           </button>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-ink/10">
-          <table className="w-full">
-            <thead className="bg-ivory-dim">
-              <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Produit</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Catégorie</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Prix</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Stock</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Status</th>
-                <th className="px-6 py-4 text-right text-sm font-semibold text-ink">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product.id} className="border-t border-ink/10 hover:bg-ivory-dim/50">
-                  <td className="px-6 py-4">
-                    <div className="flex gap-4 items-center">
-                      <img
-                        src={product.imageUrl}
-                        alt={product.title}
-                        className="h-12 w-12 rounded object-cover"
-                      />
-                      <div>
-                        <p className="font-medium text-ink">{product.title}</p>
-                        <p className="text-xs text-ink/60">{product.description?.substring(0, 50)}...</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-ink/70">{product.category}</td>
-                  <td className="px-6 py-4 text-sm font-medium text-ink">{product.price}€</td>
-                  <td className="px-6 py-4 text-sm text-ink">{product.quantity}</td>
-                  <td className="px-6 py-4 text-sm">
-                    <span
-                      className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-                        product.available
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-red-100 text-red-800'
-                      }`}
-                    >
-                      {product.available ? 'En stock' : 'Rupture'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="flex justify-end gap-2">
-                      <button
-                        onClick={() => handleEdit(product)}
-                        className="p-2 text-ink/60 hover:text-gold transition-colors"
-                        title="Modifier"
-                      >
-                        <Edit2 size={16} />
-                      </button>
-                      <button
-                        onClick={() => handleDelete(product.id)}
-                        disabled={deleting === product.id}
-                        className="p-2 text-ink/60 hover:text-red-600 transition-colors disabled:opacity-50"
-                        title="Supprimer"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </td>
+        <>
+          <div className="hidden overflow-x-auto rounded-lg border border-ink/10 md:block">
+            <table className="w-full">
+              <thead className="bg-ivory-dim">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Produit</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Catégorie</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Prix</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Stock</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-ink">Status</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-ink">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {products.map((product) => (
+                  <tr key={product.id} className="border-t border-ink/10 hover:bg-ivory-dim/50">
+                    <td className="px-6 py-4">
+                      <div className="flex gap-4 items-center">
+                        <img
+                          src={product.imageUrl}
+                          alt={product.title}
+                          className="h-12 w-12 rounded object-cover"
+                        />
+                        <div>
+                          <p className="font-medium text-ink">{product.title}</p>
+                          <p className="text-xs text-ink/60">{product.description?.substring(0, 50)}...</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-ink/70">{product.category}</td>
+                    <td className="px-6 py-4 text-sm font-medium text-ink">{product.price}€</td>
+                    <td className="px-6 py-4 text-sm text-ink">{product.quantity}</td>
+                    <td className="px-6 py-4 text-sm">
+                      <span
+                        className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                          product.available
+                            ? 'bg-green-100 text-green-800'
+                            : 'bg-red-100 text-red-800'
+                        }`}
+                      >
+                        {product.available ? 'En stock' : 'Rupture'}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <div className="flex justify-end gap-2">
+                        <button
+                          onClick={() => handleEdit(product)}
+                          className="p-2 text-ink/60 hover:text-gold transition-colors"
+                          title="Modifier"
+                        >
+                          <Edit2 size={16} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(product.id)}
+                          disabled={deleting === product.id}
+                          className="p-2 text-ink/60 hover:text-red-600 transition-colors disabled:opacity-50"
+                          title="Supprimer"
+                        >
+                          <Trash2 size={16} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="grid gap-4 md:hidden">
+            {products.map((product) => (
+              <div key={product.id} className="rounded-lg border border-ink/10 p-4">
+                <div className="flex gap-3">
+                  <img src={product.imageUrl} alt={product.title} className="h-16 w-16 shrink-0 rounded object-cover" />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <p className="font-medium text-ink">{product.title}</p>
+                      <span
+                        className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                          product.available ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                        }`}
+                      >
+                        {product.available ? 'En stock' : 'Rupture'}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-sm text-ink/60">{product.category}</p>
+                    <div className="mt-1 flex items-center gap-3 text-sm text-ink/70">
+                      <span className="font-medium text-ink">{product.price}€</span>
+                      <span>·</span>
+                      <span>{product.quantity} en stock</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-3 flex justify-end gap-2 border-t border-ink/10 pt-3">
+                  <button
+                    onClick={() => handleEdit(product)}
+                    className="flex items-center gap-1.5 rounded-full border border-ink/15 px-3 py-1.5 text-xs text-ink/70 hover:border-gold hover:text-gold"
+                  >
+                    <Edit2 size={14} /> Modifier
+                  </button>
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    disabled={deleting === product.id}
+                    className="flex items-center gap-1.5 rounded-full border border-ink/15 px-3 py-1.5 text-xs text-ink/70 hover:border-red-500 hover:text-red-600 disabled:opacity-50"
+                  >
+                    <Trash2 size={14} /> Supprimer
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
 
       {showForm && (
