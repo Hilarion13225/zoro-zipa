@@ -31,14 +31,21 @@ export function AccessGate({ children, adminMode = false }: AccessGateProps) {
     try {
       const user = await login(email, password)
 
-      if (adminMode && user.role !== 'ADMIN') {
-        // Not an admin account — send them straight to the public showcase site.
+      if (user.role === 'ADMIN') {
+        // Admin accounts always land on the dashboard, whichever login form was used.
+        navigate('/admin')
+        return
+      }
+
+      if (adminMode) {
+        // A non-admin account tried to log in on the /admin form — send them
+        // straight to the public showcase site instead.
         window.location.href = '/'
         return
       }
 
+      // Client account logging in from the site — stay on the showcase site.
       setHasAccess(true)
-      if (adminMode) navigate('/admin')
     } catch (err: any) {
       const status = err?.response?.status
       if (status === 401) setError('Email ou mot de passe incorrect')
