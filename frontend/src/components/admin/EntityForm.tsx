@@ -109,7 +109,6 @@ export function EntityForm({
                     setFormData((prev) => ({
                       ...prev,
                       [field.name]: file.url,
-                      [`${field.name}Id`]: file.fileId,
                     }))
                   }}
                 />

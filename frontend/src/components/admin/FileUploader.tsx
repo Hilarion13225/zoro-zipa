@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Upload, Trash2 } from 'lucide-react'
+import { Upload } from 'lucide-react'
 import { api } from '../../api/client'
 
 interface UploadedFile {
