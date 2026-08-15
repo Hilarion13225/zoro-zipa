@@ -33,8 +33,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Public: auth endpoints, uploaded files, and site health
-                .requestMatchers("/api/auth/**", "/uploads/**", "/static/**", "/error").permitAll()
+                // Public: auth endpoints, uploaded files, health check for uptime monitoring
+                .requestMatchers("/api/auth/**", "/uploads/**", "/static/**", "/error", "/health").permitAll()
 
                 // Public: browsing the catalogue (read-only)
                 .requestMatchers(HttpMethod.GET,
