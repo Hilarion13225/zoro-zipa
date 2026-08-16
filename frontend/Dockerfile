@@ -18,16 +18,19 @@ COPY . .
 # Build React app
 RUN npm run build
 
-# Production stage
-FROM nginx:alpine
+# Production stage — nginx's official unprivileged image: runs as non-root
+# out of the box (unlike the plain nginx:alpine image, which runs as root),
+# and the version is pinned instead of following the unpinned "alpine" tag.
+FROM nginxinc/nginx-unprivileged:1.27-alpine
 WORKDIR /usr/share/nginx/html
 
 # Copy built app from builder
-COPY --from=builder /app/dist .
+COPY --from=builder --chown=nginx:nginx /app/dist .
 
 # Copy nginx config for SPA and proxy /api to the backend
+USER root
 RUN echo 'server { \
-  listen 80; \
+  listen 8080; \
   server_name _; \
   root /usr/share/nginx/html; \
   index index.html; \
@@ -48,6 +51,7 @@ RUN echo 'server { \
     add_header Cache-Control "public, immutable"; \
   } \
 }' > /etc/nginx/conf.d/default.conf
+USER nginx
 
-EXPOSE 80
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]

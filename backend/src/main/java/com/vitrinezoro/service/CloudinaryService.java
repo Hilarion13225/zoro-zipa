@@ -42,7 +42,7 @@ public class CloudinaryService {
                 ObjectUtils.asMap(
                     "folder", folder,
                     "public_id", publicId,
-                    "resource_type", "auto",
+                    "resource_type", "image",
                     "overwrite", true
                 )
             );
