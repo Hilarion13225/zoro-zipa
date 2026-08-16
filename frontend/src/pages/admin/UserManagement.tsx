@@ -14,7 +14,7 @@ const roleLabels: Record<UserRole, string> = {
 /** Platform user management: roles, activation, deletion, password reset. */
 export function UserManagement() {
   const { data: users } = useUsers()
-  const update = useUpdateEntity<User>('users')
+  const update = useUpdateEntity<User & { password?: string }>('users')
   const remove = useDeleteEntity('users')
 
   const [passwordUser, setPasswordUser] = useState<User | null>(null)
